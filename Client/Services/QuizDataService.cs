@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.Json;
 using WalOMat.Shared.Models;
 
 namespace WalOMat.Client.Services;
@@ -9,11 +10,16 @@ namespace WalOMat.Client.Services;
 public class QuizDataService
 {
     private readonly HttpClient _http;
+    private readonly JsonSerializerOptions _jsonOptions;
     private QuizData? _cachedData;
 
     public QuizDataService(HttpClient http)
     {
         _http = http;
+        _jsonOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
     }
 
     public async Task<QuizData> LoadQuizDataAsync()
@@ -21,10 +27,10 @@ public class QuizDataService
         if (_cachedData is not null)
             return _cachedData;
 
-        var questions = await _http.GetFromJsonAsync<List<Question>>("data/questions.json")
+        var questions = await _http.GetFromJsonAsync<List<Question>>("data/questions.json", _jsonOptions)
             ?? throw new InvalidOperationException("Failed to load questions.");
 
-        var whales = await _http.GetFromJsonAsync<List<WhaleProfile>>("data/whales.json")
+        var whales = await _http.GetFromJsonAsync<List<WhaleProfile>>("data/whales.json", _jsonOptions)
             ?? throw new InvalidOperationException("Failed to load whale profiles.");
 
         _cachedData = new QuizData
@@ -36,4 +42,3 @@ public class QuizDataService
         return _cachedData;
     }
 }
-
