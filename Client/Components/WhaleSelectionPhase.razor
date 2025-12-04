@@ -1,0 +1,56 @@
+@inject QuizStateService State
+
+<div class="selection-container">
+    <header>
+        <h2>Wal-Auswahl</h2>
+        <p>Mit welchen Walen möchtest du dich vergleichen?</p>
+    </header>
+
+    <div class="select-all">
+        <button class="link-btn" @onclick="SelectAll">Alle auswählen</button>
+    </div>
+
+    <div class="whales-grid">
+        @if (State.QuizData is not null)
+        {
+            @foreach (var whale in State.QuizData.Whales)
+            {
+                var isSelected = State.SelectedWhaleIds.Contains(whale.Id);
+                <div class="whale-card @(isSelected ? "selected" : "")" @onclick="() => Toggle(whale.Id)">
+                    <img src="@whale.ImagePath" alt="@whale.Name" />
+                    <span class="whale-name">@whale.Name</span>
+                    <span class="check-indicator">@(isSelected ? "✓" : "")</span>
+                </div>
+            }
+        }
+    </div>
+
+    <footer>
+        <button class="primary-btn" @onclick="Complete" disabled="@(!HasSelection)">
+            Ergebnis anzeigen →
+        </button>
+    </footer>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnComplete { get; set; }
+
+    private bool HasSelection => State.SelectedWhaleIds.Count > 0;
+
+    private void Toggle(string whaleId)
+    {
+        State.ToggleWhaleSelection(whaleId);
+    }
+
+    private void SelectAll()
+    {
+        State.SelectAllWhales();
+    }
+
+    private async Task Complete()
+    {
+        if (HasSelection)
+            await OnComplete.InvokeAsync();
+    }
+}
+

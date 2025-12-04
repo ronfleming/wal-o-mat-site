@@ -1,0 +1,83 @@
+[
+  {
+    "id": "orca",
+    "name": "Orca",
+    "scientificName": "Orcinus orca",
+    "description": "Hochintelligent, sozial und strategisch. Orcas leben in engen Familienverbänden und sind für ihre ausgeklügelten Jagdtechniken bekannt.",
+    "imagePath": "/images/whales/orca1.webp",
+    "traits": ["Sozial", "Strategisch", "Familienorientiert", "Anpassungsfähig"]
+  },
+  {
+    "id": "blue",
+    "name": "Blauwal",
+    "scientificName": "Balaenoptera musculus",
+    "description": "Das größte Tier, das je gelebt hat. Blauwal sind sanfte Riesen, die weite Strecken allein zurücklegen und eine ruhige Präsenz ausstrahlen.",
+    "imagePath": "/images/whales/blue1.webp",
+    "traits": ["Ruhig", "Unabhängig", "Ausdauernd", "Beeindruckend"]
+  },
+  {
+    "id": "humpback",
+    "name": "Buckelwal",
+    "scientificName": "Megaptera novaeangliae",
+    "description": "Bekannt für ihre komplexen Gesänge und akrobatischen Sprünge. Buckelwale sind kreativ und ausdrucksstark.",
+    "imagePath": "/images/whales/humpback1.webp",
+    "traits": ["Kreativ", "Ausdrucksstark", "Verspielt", "Kommunikativ"]
+  },
+  {
+    "id": "beluga",
+    "name": "Beluga",
+    "scientificName": "Delphinapterus leucas",
+    "description": "Der 'Kanarienvogel der Meere' ist bekannt für seine Geselligkeit und sein breites Repertoire an Lauten. Belugas sind freundlich und neugierig.",
+    "imagePath": "/images/whales/beluga1.webp",
+    "traits": ["Gesellig", "Neugierig", "Freundlich", "Gesprächig"]
+  },
+  {
+    "id": "sperm",
+    "name": "Pottwal",
+    "scientificName": "Physeter macrocephalus",
+    "description": "Tieftaucher mit dem größten Gehirn aller Tiere. Pottwale sind nachdenklich, geduldig und können extremem Druck standhalten.",
+    "imagePath": "/images/whales/sperm1.webp",
+    "traits": ["Nachdenklich", "Geduldig", "Tiefgründig", "Beharrlich"]
+  },
+  {
+    "id": "narwhal",
+    "name": "Narwal",
+    "scientificName": "Monodon monoceros",
+    "description": "Das 'Einhorn der Meere' mit seinem charakteristischen Stoßzahn. Narwale sind einzigartig und etwas geheimnisvoll.",
+    "imagePath": "/images/whales/narwhal1.webp",
+    "traits": ["Einzigartig", "Geheimnisvoll", "Anmutig", "Selten"]
+  },
+  {
+    "id": "gray",
+    "name": "Grauwal",
+    "scientificName": "Eschrichtius robustus",
+    "description": "Unternimmt eine der längsten Wanderungen aller Säugetiere. Grauwale sind ausdauernd, traditionsbewusst und bodenständig.",
+    "imagePath": "/images/whales/gray1.webp",
+    "traits": ["Ausdauernd", "Traditionsbewusst", "Bodenständig", "Zielstrebig"]
+  },
+  {
+    "id": "pilot",
+    "name": "Grindwal",
+    "scientificName": "Globicephala melas",
+    "description": "Lebt in stabilen sozialen Gruppen mit starker Bindung. Grindwale sind loyal, gemeinschaftsorientiert und folgen bewährten Führern.",
+    "imagePath": "/images/whales/pilot1.webp",
+    "traits": ["Loyal", "Gemeinschaftsorientiert", "Vertrauensvoll", "Beständig"]
+  },
+  {
+    "id": "minke",
+    "name": "Zwergwal",
+    "scientificName": "Balaenoptera acutorostrata",
+    "description": "Klein, schnell und wendig. Zwergwale sind neugierig, unabhängig und oft allein oder in kleinen Gruppen unterwegs.",
+    "imagePath": "/images/whales/minke1.webp",
+    "traits": ["Wendig", "Unabhängig", "Neugierig", "Schnell"]
+  },
+  {
+    "id": "bowhead",
+    "name": "Grönlandwal",
+    "scientificName": "Balaena mysticetus",
+    "description": "Kann über 200 Jahre alt werden – das langlebigste Säugetier. Grönlandwale sind weise, besonnen und widerstandsfähig.",
+    "imagePath": "/images/whales/bowhead1.webp",
+    "traits": ["Weise", "Besonnen", "Widerstandsfähig", "Langlebig"]
+  }
+]
+

@@ -1,0 +1,125 @@
+@page "/quiz"
+@inject QuizDataService DataService
+@inject QuizStateService State
+@inject MatchingService Matching
+@inject NavigationManager Navigation
+
+<PageTitle>Quiz – Wal-O-Mat</PageTitle>
+
+@if (_isLoading)
+{
+    <div class="loading">Lade Fragen...</div>
+}
+else if (State.Phase == QuizPhase.Answering && State.CurrentQuestion is not null)
+{
+    <div class="quiz-container">
+        <header class="quiz-header">
+            <span class="progress">Frage @(State.CurrentQuestionIndex + 1) von @State.TotalQuestions</span>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: @(((State.CurrentQuestionIndex + 1) / (double)State.TotalQuestions) * 100)%"></div>
+            </div>
+        </header>
+
+        <main class="question-area">
+            <p class="question-text">@State.CurrentQuestion.Text</p>
+
+            <div class="answer-buttons">
+                <button class="answer-btn agree @(GetAnswerClass(1))" @onclick="() => Answer(1)">
+                    Stimme zu
+                </button>
+                <button class="answer-btn neutral @(GetAnswerClass(0))" @onclick="() => Answer(0)">
+                    Neutral
+                </button>
+                <button class="answer-btn disagree @(GetAnswerClass(-1))" @onclick="() => Answer(-1)">
+                    Stimme nicht zu
+                </button>
+            </div>
+
+            <button class="skip-btn" @onclick="Skip">
+                Überspringen
+            </button>
+        </main>
+
+        <footer class="quiz-nav">
+            @if (State.CurrentQuestionIndex > 0)
+            {
+                <button class="nav-btn" @onclick="Previous">← Zurück</button>
+            }
+            else
+            {
+                <span></span>
+            }
+            
+            @if (_hasAnswered)
+            {
+                <button class="nav-btn primary" @onclick="Next">
+                    @(State.IsLastQuestion ? "Zur Gewichtung →" : "Weiter →")
+                </button>
+            }
+        </footer>
+    </div>
+}
+else if (State.Phase == QuizPhase.Weighting)
+{
+    <WeightingPhase OnComplete="FinishWeighting" />
+}
+else if (State.Phase == QuizPhase.WhaleSelection)
+{
+    <WhaleSelectionPhase OnComplete="ShowResults" />
+}
+else if (State.Phase == QuizPhase.Results && State.Results is not null)
+{
+    <ResultsPhase />
+}
+
+@code {
+    private bool _isLoading = true;
+    private bool _hasAnswered => State.GetAnswerForQuestion(State.CurrentQuestion?.Id ?? "") is not null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var data = await DataService.LoadQuizDataAsync();
+        State.Initialize(data);
+        State.StartQuiz();
+        _isLoading = false;
+    }
+
+    private void Answer(int position)
+    {
+        State.AnswerQuestion(position);
+        StateHasChanged();
+    }
+
+    private void Skip()
+    {
+        State.AnswerQuestion(null);
+        Next();
+    }
+
+    private void Next()
+    {
+        State.NextQuestion();
+    }
+
+    private void Previous()
+    {
+        State.PreviousQuestion();
+    }
+
+    private void FinishWeighting()
+    {
+        State.FinishWeighting();
+    }
+
+    private void ShowResults()
+    {
+        State.CalculateResults(Matching);
+    }
+
+    private string GetAnswerClass(int position)
+    {
+        var current = State.GetAnswerForQuestion(State.CurrentQuestion?.Id ?? "");
+        return current == position ? "selected" : "";
+    }
+}
+

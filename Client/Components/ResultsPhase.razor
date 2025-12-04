@@ -1,0 +1,55 @@
+@inject QuizStateService State
+@inject NavigationManager Navigation
+
+<div class="results-container">
+    <header>
+        <h2>Dein Ergebnis</h2>
+        <p>So gut passt du zu den verschiedenen Walen:</p>
+    </header>
+
+    <div class="results-list">
+        @if (State.Results is not null)
+        {
+            var rank = 1;
+            @foreach (var result in State.Results)
+            {
+                <div class="result-card @(rank == 1 ? "top-match" : "")">
+                    <span class="rank">#@rank</span>
+                    <img src="@result.ImagePath" alt="@result.WhaleName" />
+                    <div class="result-info">
+                        <span class="whale-name">@result.WhaleName</span>
+                        <div class="match-bar">
+                            <div class="match-fill" style="width: @result.MatchPercentage%"></div>
+                        </div>
+                        <span class="match-percent">@result.MatchPercentage%</span>
+                    </div>
+                </div>
+                rank++;
+            }
+        }
+    </div>
+
+    <footer>
+        <button class="secondary-btn" @onclick="Restart">
+            Nochmal spielen
+        </button>
+        <button class="secondary-btn" @onclick="GoHome">
+            Zur Startseite
+        </button>
+    </footer>
+</div>
+
+@code {
+    private void Restart()
+    {
+        State.Reset();
+        Navigation.NavigateTo("/quiz", forceLoad: true);
+    }
+
+    private void GoHome()
+    {
+        State.Reset();
+        Navigation.NavigateTo("/");
+    }
+}
+

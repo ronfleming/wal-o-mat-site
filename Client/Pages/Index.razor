@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<PageTitle>Wal-O-Mat</PageTitle>
+
+<div class="splash-container">
+    <header class="splash-header">
+        <h1>🐋 Wal-O-Mat</h1>
+        <p class="tagline">Welcher Wal bist du?</p>
+    </header>
+
+    <main class="splash-content">
+        <div class="disclaimer-box">
+            <p>
+                <strong>Hinweis:</strong> Dies ist <em>nicht</em> der offizielle 
+                <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">Wahl-O-Mat</a> 
+                der Bundeszentrale für politische Bildung. 
+                Dies ist ein humorvolles Parodie-Projekt, das das Wortspiel 
+                „Wahl" (Wahl) und „Wal" (Wal) nutzt.
+            </p>
+            <p>
+                Auf der Suche nach dem echten Wahl-O-Mat? 
+                <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">Hier entlang →</a>
+            </p>
+        </div>
+
+        <div class="intro-text">
+            <p>
+                Beantworte ein paar Fragen über dich selbst und finde heraus, 
+                welcher Wal am besten zu deiner Persönlichkeit passt!
+            </p>
+        </div>
+
+        <button class="start-button" @onclick="StartQuiz">
+            Quiz starten
+        </button>
+    </main>
+
+    <footer class="splash-footer">
+        <a href="/about">Über dieses Projekt</a>
+    </footer>
+</div>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    private void StartQuiz()
+    {
+        Navigation.NavigateTo("/quiz");
+    }
+}

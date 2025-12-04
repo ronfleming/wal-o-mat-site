@@ -1,0 +1,68 @@
+@inject QuizStateService State
+
+<div class="weighting-container">
+    <header>
+        <h2>Gewichtung</h2>
+        <p>Welche Fragen sind dir besonders wichtig? Diese zählen doppelt.</p>
+    </header>
+
+    <div class="questions-list">
+        @if (State.QuizData is not null)
+        {
+            @foreach (var question in State.QuizData.Questions)
+            {
+                var answer = State.Answers.FirstOrDefault(a => a.QuestionId == question.Id);
+                if (answer?.Position is null) continue;
+
+                <div class="weight-item">
+                    <label>
+                        <input type="checkbox" 
+                               checked="@answer.IsWeighted"
+                               @onchange="e => ToggleWeight(question.Id, (bool)(e.Value ?? false))" />
+                        <span class="question-text">@question.Text</span>
+                        <span class="answer-indicator @GetAnswerClass(answer.Position.Value)">
+                            @GetAnswerText(answer.Position.Value)
+                        </span>
+                    </label>
+                </div>
+            }
+        }
+    </div>
+
+    <footer>
+        <button class="primary-btn" @onclick="Complete">
+            Weiter zur Wal-Auswahl →
+        </button>
+    </footer>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnComplete { get; set; }
+
+    private void ToggleWeight(string questionId, bool isWeighted)
+    {
+        State.SetWeight(questionId, isWeighted);
+    }
+
+    private async Task Complete()
+    {
+        await OnComplete.InvokeAsync();
+    }
+
+    private static string GetAnswerClass(int position) => position switch
+    {
+        1 => "agree",
+        0 => "neutral",
+        -1 => "disagree",
+        _ => ""
+    };
+
+    private static string GetAnswerText(int position) => position switch
+    {
+        1 => "✓",
+        0 => "○",
+        -1 => "✗",
+        _ => ""
+    };
+}
+

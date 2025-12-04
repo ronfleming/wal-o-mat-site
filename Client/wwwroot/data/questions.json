@@ -1,0 +1,207 @@
+[
+  {
+    "id": "q1",
+    "text": "Ich verbringe meine Freizeit am liebsten mit Familie und engen Freunden.",
+    "category": "Soziales",
+    "whalePositions": {
+      "orca": 1,
+      "blue": -1,
+      "humpback": 0,
+      "beluga": 1,
+      "sperm": 0,
+      "narwhal": -1,
+      "gray": 0,
+      "pilot": 1,
+      "minke": -1,
+      "bowhead": 0
+    }
+  },
+  {
+    "id": "q2",
+    "text": "Ich plane gerne langfristig und setze mir große Ziele.",
+    "category": "Persönlichkeit",
+    "whalePositions": {
+      "orca": 1,
+      "blue": 1,
+      "humpback": 0,
+      "beluga": -1,
+      "sperm": 1,
+      "narwhal": 0,
+      "gray": 1,
+      "pilot": 0,
+      "minke": -1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q3",
+    "text": "Ich drücke mich gerne kreativ aus – sei es durch Musik, Kunst oder andere Formen.",
+    "category": "Kreativität",
+    "whalePositions": {
+      "orca": 0,
+      "blue": -1,
+      "humpback": 1,
+      "beluga": 1,
+      "sperm": 0,
+      "narwhal": 1,
+      "gray": -1,
+      "pilot": 0,
+      "minke": 0,
+      "bowhead": -1
+    }
+  },
+  {
+    "id": "q4",
+    "text": "Ich fühle mich in neuen, unbekannten Situationen wohl.",
+    "category": "Anpassungsfähigkeit",
+    "whalePositions": {
+      "orca": 1,
+      "blue": 0,
+      "humpback": 1,
+      "beluga": 1,
+      "sperm": -1,
+      "narwhal": 0,
+      "gray": -1,
+      "pilot": -1,
+      "minke": 1,
+      "bowhead": -1
+    }
+  },
+  {
+    "id": "q5",
+    "text": "Ich bin geduldig und kann lange auf etwas warten, wenn es sich lohnt.",
+    "category": "Persönlichkeit",
+    "whalePositions": {
+      "orca": 0,
+      "blue": 1,
+      "humpback": -1,
+      "beluga": -1,
+      "sperm": 1,
+      "narwhal": 0,
+      "gray": 1,
+      "pilot": 0,
+      "minke": -1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q6",
+    "text": "Ich rede gerne und viel mit anderen Menschen.",
+    "category": "Kommunikation",
+    "whalePositions": {
+      "orca": 1,
+      "blue": -1,
+      "humpback": 1,
+      "beluga": 1,
+      "sperm": -1,
+      "narwhal": -1,
+      "gray": 0,
+      "pilot": 1,
+      "minke": 0,
+      "bowhead": -1
+    }
+  },
+  {
+    "id": "q7",
+    "text": "Ich löse Probleme lieber mit Strategie als mit Spontaneität.",
+    "category": "Denkweise",
+    "whalePositions": {
+      "orca": 1,
+      "blue": 0,
+      "humpback": -1,
+      "beluga": -1,
+      "sperm": 1,
+      "narwhal": 0,
+      "gray": 1,
+      "pilot": 0,
+      "minke": -1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q8",
+    "text": "Ich bin lieber einer von vielen als jemand, der heraussticht.",
+    "category": "Soziales",
+    "whalePositions": {
+      "orca": -1,
+      "blue": 1,
+      "humpback": -1,
+      "beluga": 0,
+      "sperm": 0,
+      "narwhal": -1,
+      "gray": 1,
+      "pilot": 1,
+      "minke": 0,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q9",
+    "text": "Ich brauche regelmäßig Zeit für mich allein.",
+    "category": "Persönlichkeit",
+    "whalePositions": {
+      "orca": -1,
+      "blue": 1,
+      "humpback": 0,
+      "beluga": -1,
+      "sperm": 1,
+      "narwhal": 1,
+      "gray": 0,
+      "pilot": -1,
+      "minke": 1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q10",
+    "text": "Traditionen und bewährte Methoden sind mir wichtig.",
+    "category": "Werte",
+    "whalePositions": {
+      "orca": 0,
+      "blue": 0,
+      "humpback": -1,
+      "beluga": 0,
+      "sperm": 1,
+      "narwhal": 0,
+      "gray": 1,
+      "pilot": 1,
+      "minke": -1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q11",
+    "text": "Ich bin bekannt dafür, auch unter Druck ruhig zu bleiben.",
+    "category": "Persönlichkeit",
+    "whalePositions": {
+      "orca": 1,
+      "blue": 1,
+      "humpback": 0,
+      "beluga": 0,
+      "sperm": 1,
+      "narwhal": 0,
+      "gray": 0,
+      "pilot": 0,
+      "minke": -1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q12",
+    "text": "Ich probiere gerne neue Dinge aus, auch wenn ich nicht weiß, ob sie funktionieren.",
+    "category": "Risikobereitschaft",
+    "whalePositions": {
+      "orca": 1,
+      "blue": -1,
+      "humpback": 1,
+      "beluga": 1,
+      "sperm": -1,
+      "narwhal": 0,
+      "gray": -1,
+      "pilot": -1,
+      "minke": 1,
+      "bowhead": -1
+    }
+  }
+]
+

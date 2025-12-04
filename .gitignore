@@ -1,0 +1,114 @@
+# =============================================================================
+# Wal-O-Mat .gitignore
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Project-specific exclusions
+# -----------------------------------------------------------------------------
+
+# Reference materials and working docs (contains original Wahl-O-Mat source)
+docs-temp/
+
+# -----------------------------------------------------------------------------
+# .NET / C# Build outputs
+# -----------------------------------------------------------------------------
+
+bin/
+obj/
+out/
+
+# .NET publish output
+publish/
+
+# MSBuild
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# -----------------------------------------------------------------------------
+# IDE and Editor
+# -----------------------------------------------------------------------------
+
+# Visual Studio
+.vs/
+*.vsconfig
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Cursor
+.cursor/
+
+# -----------------------------------------------------------------------------
+# OS generated files
+# -----------------------------------------------------------------------------
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+
+# -----------------------------------------------------------------------------
+# Blazor / Web specific
+# -----------------------------------------------------------------------------
+
+# Blazor WASM service worker cache
+wwwroot/service-worker-assets.js
+
+# -----------------------------------------------------------------------------
+# Secrets and local configuration
+# -----------------------------------------------------------------------------
+
+# User secrets
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# -----------------------------------------------------------------------------
+# Logs and temporary files
+# -----------------------------------------------------------------------------
+
+*.log
+*.tmp
+*.temp
+logs/
+
+# -----------------------------------------------------------------------------
+# Test results
+# -----------------------------------------------------------------------------
+
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
