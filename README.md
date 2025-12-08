@@ -26,9 +26,8 @@ Weighted questions count double. Skipped questions are excluded.
 
 ### Technology
 
--   **Frontend:** Blazor WebAssembly
--   **Backend:** ASP.NET Core (Hosted model)
--   **Hosting:** Azure App Service
+-   **Frontend:** Blazor WebAssembly (Standalone)
+-   **Hosting:** Azure Static Web Apps (Free tier)
 -   **CI/CD:** GitHub Actions
 -   **i18n:** German/English with runtime toggle
 
@@ -54,9 +53,8 @@ Gewichtete Fragen zählen doppelt. Übersprungene Fragen werden nicht gewertet.
 
 ### Technologie
 
--   **Frontend:** Blazor WebAssembly
--   **Backend:** ASP.NET Core (Hosted-Modell)
--   **Hosting:** Azure App Service
+-   **Frontend:** Blazor WebAssembly (Standalone)
+-   **Hosting:** Azure Static Web Apps (Free tier)
 -   **CI/CD:** GitHub Actions
 -   **i18n:** Deutsch/Englisch mit Sprachumschalter
 
@@ -70,10 +68,10 @@ git clone https://github.com/ronfleming/wal-o-mat-site.git
 cd wal-o-mat-site
 
 # Run with hot reload
-cd Server
+cd Client
 dotnet watch run
 
-# Open http://localhost:5000
+# Open http://localhost:5042
 ```
 
 ## License
