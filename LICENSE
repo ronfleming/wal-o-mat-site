@@ -1,0 +1,37 @@
+MIT License
+
+Copyright (c) 2025 Ron Fleming
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+DISCLAIMER
+
+This project is a parody and homage created for educational and entertainment
+purposes. It is not affiliated with, endorsed by, or connected to the
+Bundeszentrale für politische Bildung (bpb) or their Wahl-O-Mat application.
+
+"Wahl-O-Mat" is a registered trademark of the Bundeszentrale für politische
+Bildung. This project uses the name "Wal-O-Mat" as a play on the German words
+"Wahl" (election/choice) and "Wal" (whale).
+
+The quiz logic and scoring algorithm are inspired by the publicly documented
+methodology of the original Wahl-O-Mat, adapted here for a humorous personality
+quiz matching users with whale species rather than political parties.

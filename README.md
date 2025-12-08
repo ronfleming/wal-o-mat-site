@@ -78,4 +78,6 @@ dotnet watch run
 
 ## License
 
-This is a personal portfolio project. The Wahl-O-Mat concept and name belong to the Bundeszentrale für politische Bildung (bpb).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This is a parody/homage project created for educational and entertainment purposes. It is not affiliated with or endorsed by the Bundeszentrale für politische Bildung (bpb). "Wahl-O-Mat" is a registered trademark of the bpb.
