@@ -2,48 +2,50 @@
 @inject QuizDataService DataService
 @inject QuizStateService State
 @inject MatchingService Matching
+@inject LocalizationService L
 @inject NavigationManager Navigation
+@implements IDisposable
 
 <PageTitle>Quiz – Wal-O-Mat</PageTitle>
 
 @if (_isLoading)
 {
-    <div class="loading">Lade Fragen...</div>
+    <div class="loading">@L.Get("quiz_loading")</div>
 }
 else if (State.Phase == QuizPhase.Answering && State.CurrentQuestion is not null)
 {
     <div class="quiz-container">
         <header class="quiz-header">
-            <span class="progress">Frage @(State.CurrentQuestionIndex + 1) von @State.TotalQuestions</span>
+            <span class="progress">@L.Get("quiz_question") @(State.CurrentQuestionIndex + 1) @L.Get("quiz_of") @State.TotalQuestions</span>
             <div class="progress-bar">
                 <div class="progress-fill" style="width: @(((State.CurrentQuestionIndex + 1) / (double)State.TotalQuestions) * 100)%"></div>
             </div>
         </header>
 
         <main class="question-area">
-            <p class="question-text">@State.CurrentQuestion.Text</p>
+            <p class="question-text">@GetQuestionText()</p>
 
             <div class="answer-buttons">
                 <button class="answer-btn agree @(GetAnswerClass(1))" @onclick="() => Answer(1)">
-                    Stimme zu
+                    @L.Get("quiz_agree")
                 </button>
                 <button class="answer-btn neutral @(GetAnswerClass(0))" @onclick="() => Answer(0)">
-                    Neutral
+                    @L.Get("quiz_neutral")
                 </button>
                 <button class="answer-btn disagree @(GetAnswerClass(-1))" @onclick="() => Answer(-1)">
-                    Stimme nicht zu
+                    @L.Get("quiz_disagree")
                 </button>
             </div>
 
             <button class="skip-btn" @onclick="Skip">
-                Überspringen
+                @L.Get("quiz_skip")
             </button>
         </main>
 
         <footer class="quiz-nav">
             @if (State.CurrentQuestionIndex > 0)
             {
-                <button class="nav-btn" @onclick="Previous">← Zurück</button>
+                <button class="nav-btn" @onclick="Previous">@L.Get("quiz_back")</button>
             }
             else
             {
@@ -53,7 +55,7 @@ else if (State.Phase == QuizPhase.Answering && State.CurrentQuestion is not null
             @if (_hasAnswered)
             {
                 <button class="nav-btn primary" @onclick="Next">
-                    @(State.IsLastQuestion ? "Zur Gewichtung →" : "Weiter →")
+                    @(State.IsLastQuestion ? L.Get("quiz_to_weighting") : L.Get("quiz_next"))
                 </button>
             }
         </footer>
@@ -78,10 +80,17 @@ else if (State.Phase == QuizPhase.Results && State.Results is not null)
 
     protected override async Task OnInitializedAsync()
     {
+        L.OnLanguageChanged += StateHasChanged;
         var data = await DataService.LoadQuizDataAsync();
         State.Initialize(data);
         State.StartQuiz();
         _isLoading = false;
+    }
+
+    private string GetQuestionText()
+    {
+        if (State.CurrentQuestion is null) return "";
+        return State.CurrentQuestion.GetText(L.CurrentLanguage);
     }
 
     private void Answer(int position)
@@ -121,5 +130,9 @@ else if (State.Phase == QuizPhase.Results && State.Results is not null)
         var current = State.GetAnswerForQuestion(State.CurrentQuestion?.Id ?? "");
         return current == position ? "selected" : "";
     }
-}
 
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}

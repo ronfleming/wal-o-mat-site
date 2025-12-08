@@ -1,8 +1,9 @@
 [
   {
     "id": "q1",
-    "text": "Ich verbringe meine Freizeit am liebsten mit Familie und engen Freunden.",
-    "category": "Soziales",
+    "textDe": "Ich verbringe meine Freizeit am liebsten mit Familie und engen Freunden.",
+    "textEn": "I prefer spending my free time with family and close friends.",
+    "category": "social",
     "whalePositions": {
       "orca": 1,
       "blue": -1,
@@ -18,8 +19,9 @@
   },
   {
     "id": "q2",
-    "text": "Ich plane gerne langfristig und setze mir große Ziele.",
-    "category": "Persönlichkeit",
+    "textDe": "Ich plane gerne langfristig und setze mir große Ziele.",
+    "textEn": "I like to plan long-term and set ambitious goals.",
+    "category": "personality",
     "whalePositions": {
       "orca": 1,
       "blue": 1,
@@ -35,8 +37,9 @@
   },
   {
     "id": "q3",
-    "text": "Ich drücke mich gerne kreativ aus – sei es durch Musik, Kunst oder andere Formen.",
-    "category": "Kreativität",
+    "textDe": "Ich drücke mich gerne kreativ aus – sei es durch Musik, Kunst oder andere Formen.",
+    "textEn": "I enjoy expressing myself creatively – whether through music, art, or other forms.",
+    "category": "creativity",
     "whalePositions": {
       "orca": 0,
       "blue": -1,
@@ -52,8 +55,9 @@
   },
   {
     "id": "q4",
-    "text": "Ich fühle mich in neuen, unbekannten Situationen wohl.",
-    "category": "Anpassungsfähigkeit",
+    "textDe": "Ich fühle mich in neuen, unbekannten Situationen wohl.",
+    "textEn": "I feel comfortable in new, unfamiliar situations.",
+    "category": "adaptability",
     "whalePositions": {
       "orca": 1,
       "blue": 0,
@@ -69,8 +73,9 @@
   },
   {
     "id": "q5",
-    "text": "Ich bin geduldig und kann lange auf etwas warten, wenn es sich lohnt.",
-    "category": "Persönlichkeit",
+    "textDe": "Ich bin geduldig und kann lange auf etwas warten, wenn es sich lohnt.",
+    "textEn": "I'm patient and can wait a long time for something if it's worth it.",
+    "category": "personality",
     "whalePositions": {
       "orca": 0,
       "blue": 1,
@@ -86,8 +91,9 @@
   },
   {
     "id": "q6",
-    "text": "Ich rede gerne und viel mit anderen Menschen.",
-    "category": "Kommunikation",
+    "textDe": "Ich rede gerne und viel mit anderen Menschen.",
+    "textEn": "I enjoy talking a lot with other people.",
+    "category": "communication",
     "whalePositions": {
       "orca": 1,
       "blue": -1,
@@ -103,8 +109,9 @@
   },
   {
     "id": "q7",
-    "text": "Ich löse Probleme lieber mit Strategie als mit Spontaneität.",
-    "category": "Denkweise",
+    "textDe": "Ich löse Probleme lieber mit Strategie als mit Spontaneität.",
+    "textEn": "I prefer solving problems with strategy rather than spontaneity.",
+    "category": "thinking",
     "whalePositions": {
       "orca": 1,
       "blue": 0,
@@ -120,8 +127,9 @@
   },
   {
     "id": "q8",
-    "text": "Ich bin lieber einer von vielen als jemand, der heraussticht.",
-    "category": "Soziales",
+    "textDe": "Ich bin lieber einer von vielen als jemand, der heraussticht.",
+    "textEn": "I'd rather be one of many than someone who stands out.",
+    "category": "social",
     "whalePositions": {
       "orca": -1,
       "blue": 1,
@@ -137,8 +145,9 @@
   },
   {
     "id": "q9",
-    "text": "Ich brauche regelmäßig Zeit für mich allein.",
-    "category": "Persönlichkeit",
+    "textDe": "Ich brauche regelmäßig Zeit für mich allein.",
+    "textEn": "I regularly need time to myself.",
+    "category": "personality",
     "whalePositions": {
       "orca": -1,
       "blue": 1,
@@ -154,8 +163,9 @@
   },
   {
     "id": "q10",
-    "text": "Traditionen und bewährte Methoden sind mir wichtig.",
-    "category": "Werte",
+    "textDe": "Traditionen und bewährte Methoden sind mir wichtig.",
+    "textEn": "Traditions and proven methods are important to me.",
+    "category": "values",
     "whalePositions": {
       "orca": 0,
       "blue": 0,
@@ -171,8 +181,9 @@
   },
   {
     "id": "q11",
-    "text": "Ich bin bekannt dafür, auch unter Druck ruhig zu bleiben.",
-    "category": "Persönlichkeit",
+    "textDe": "Ich bin bekannt dafür, auch unter Druck ruhig zu bleiben.",
+    "textEn": "I'm known for staying calm under pressure.",
+    "category": "personality",
     "whalePositions": {
       "orca": 1,
       "blue": 1,
@@ -188,8 +199,9 @@
   },
   {
     "id": "q12",
-    "text": "Ich probiere gerne neue Dinge aus, auch wenn ich nicht weiß, ob sie funktionieren.",
-    "category": "Risikobereitschaft",
+    "textDe": "Ich probiere gerne neue Dinge aus, auch wenn ich nicht weiß, ob sie funktionieren.",
+    "textEn": "I like trying new things, even when I don't know if they'll work.",
+    "category": "risk",
     "whalePositions": {
       "orca": 1,
       "blue": -1,
@@ -204,4 +216,3 @@
     }
   }
 ]
-

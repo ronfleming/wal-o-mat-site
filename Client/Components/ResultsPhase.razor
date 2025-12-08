@@ -1,23 +1,28 @@
 @inject QuizStateService State
+@inject LocalizationService L
 @inject NavigationManager Navigation
+@implements IDisposable
 
 <div class="results-container">
     <header>
-        <h2>Dein Ergebnis</h2>
-        <p>So gut passt du zu den verschiedenen Walen:</p>
+        <h2>@L.Get("results_title")</h2>
+        <p>@L.Get("results_intro")</p>
     </header>
 
     <div class="results-list">
-        @if (State.Results is not null)
+        @if (State.Results is not null && State.QuizData is not null)
         {
             var rank = 1;
             @foreach (var result in State.Results)
             {
+                var whale = State.QuizData.Whales.FirstOrDefault(w => w.Id == result.WhaleId);
+                var displayName = whale?.GetName(L.CurrentLanguage) ?? result.WhaleName;
+                
                 <div class="result-card @(rank == 1 ? "top-match" : "")">
                     <span class="rank">#@rank</span>
-                    <img src="@result.ImagePath" alt="@result.WhaleName" />
+                    <img src="@result.ImagePath" alt="@displayName" />
                     <div class="result-info">
-                        <span class="whale-name">@result.WhaleName</span>
+                        <span class="whale-name">@displayName</span>
                         <div class="match-bar">
                             <div class="match-fill" style="width: @result.MatchPercentage%"></div>
                         </div>
@@ -31,15 +36,20 @@
 
     <footer>
         <button class="secondary-btn" @onclick="Restart">
-            Nochmal spielen
+            @L.Get("results_restart")
         </button>
         <button class="secondary-btn" @onclick="GoHome">
-            Zur Startseite
+            @L.Get("results_home")
         </button>
     </footer>
 </div>
 
 @code {
+    protected override void OnInitialized()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+    }
+
     private void Restart()
     {
         State.Reset();
@@ -51,5 +61,9 @@
         State.Reset();
         Navigation.NavigateTo("/");
     }
-}
 
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}

@@ -1,13 +1,15 @@
 @inject QuizStateService State
+@inject LocalizationService L
+@implements IDisposable
 
 <div class="selection-container">
     <header>
-        <h2>Wal-Auswahl</h2>
-        <p>Mit welchen Walen möchtest du dich vergleichen?</p>
+        <h2>@L.Get("selection_title")</h2>
+        <p>@L.Get("selection_intro")</p>
     </header>
 
     <div class="select-all">
-        <button class="link-btn" @onclick="SelectAll">Alle auswählen</button>
+        <button class="link-btn" @onclick="SelectAll">@L.Get("selection_all")</button>
     </div>
 
     <div class="whales-grid">
@@ -17,8 +19,8 @@
             {
                 var isSelected = State.SelectedWhaleIds.Contains(whale.Id);
                 <div class="whale-card @(isSelected ? "selected" : "")" @onclick="() => Toggle(whale.Id)">
-                    <img src="@whale.ImagePath" alt="@whale.Name" />
-                    <span class="whale-name">@whale.Name</span>
+                    <img src="@whale.ImagePath" alt="@whale.GetName(L.CurrentLanguage)" />
+                    <span class="whale-name">@whale.GetName(L.CurrentLanguage)</span>
                     <span class="check-indicator">@(isSelected ? "✓" : "")</span>
                 </div>
             }
@@ -27,7 +29,7 @@
 
     <footer>
         <button class="primary-btn" @onclick="Complete" disabled="@(!HasSelection)">
-            Ergebnis anzeigen →
+            @L.Get("selection_continue")
         </button>
     </footer>
 </div>
@@ -36,6 +38,11 @@
     [Parameter] public EventCallback OnComplete { get; set; }
 
     private bool HasSelection => State.SelectedWhaleIds.Count > 0;
+
+    protected override void OnInitialized()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+    }
 
     private void Toggle(string whaleId)
     {
@@ -52,5 +59,9 @@
         if (HasSelection)
             await OnComplete.InvokeAsync();
     }
-}
 
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}

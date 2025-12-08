@@ -1,9 +1,11 @@
 @inject QuizStateService State
+@inject LocalizationService L
+@implements IDisposable
 
 <div class="weighting-container">
     <header>
-        <h2>Gewichtung</h2>
-        <p>Welche Fragen sind dir besonders wichtig? Diese zählen doppelt.</p>
+        <h2>@L.Get("weighting_title")</h2>
+        <p>@L.Get("weighting_intro")</p>
     </header>
 
     <div class="questions-list">
@@ -19,7 +21,7 @@
                         <input type="checkbox" 
                                checked="@answer.IsWeighted"
                                @onchange="e => ToggleWeight(question.Id, (bool)(e.Value ?? false))" />
-                        <span class="question-text">@question.Text</span>
+                        <span class="question-text">@question.GetText(L.CurrentLanguage)</span>
                         <span class="answer-indicator @GetAnswerClass(answer.Position.Value)">
                             @GetAnswerText(answer.Position.Value)
                         </span>
@@ -31,13 +33,18 @@
 
     <footer>
         <button class="primary-btn" @onclick="Complete">
-            Weiter zur Wal-Auswahl →
+            @L.Get("weighting_continue")
         </button>
     </footer>
 </div>
 
 @code {
     [Parameter] public EventCallback OnComplete { get; set; }
+
+    protected override void OnInitialized()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+    }
 
     private void ToggleWeight(string questionId, bool isWeighted)
     {
@@ -64,5 +71,9 @@
         -1 => "✗",
         _ => ""
     };
-}
 
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}

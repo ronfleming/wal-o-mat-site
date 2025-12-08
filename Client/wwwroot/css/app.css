@@ -26,11 +26,16 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, var(--color-ocean-deep) 0%, var(--color-ocean-mid) 100%);
+    background: linear-gradient(
+        135deg,
+        var(--color-ocean-deep) 0%,
+        var(--color-ocean-mid) 100%
+    );
     min-height: 100vh;
     color: var(--color-text);
 }
@@ -58,6 +63,31 @@ html, body {
    Splash / Landing Page
    ========================================================================== */
 
+/* Global language toggle - fixed in upper right */
+.global-language-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+}
+
+.language-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-small);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.language-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
 .splash-container {
     max-width: 600px;
     text-align: center;
@@ -75,8 +105,13 @@ html, body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .splash-header h1 {
@@ -271,19 +306,22 @@ html, body {
     transform: translateX(4px);
 }
 
-.answer-btn.agree:hover, .answer-btn.agree.selected {
+.answer-btn.agree:hover,
+.answer-btn.agree.selected {
     background: var(--color-agree);
     color: white;
     border-color: var(--color-agree);
 }
 
-.answer-btn.neutral:hover, .answer-btn.neutral.selected {
+.answer-btn.neutral:hover,
+.answer-btn.neutral.selected {
     background: var(--color-neutral);
     color: white;
     border-color: var(--color-neutral);
 }
 
-.answer-btn.disagree:hover, .answer-btn.disagree.selected {
+.answer-btn.disagree:hover,
+.answer-btn.disagree.selected {
     background: var(--color-disagree);
     color: white;
     border-color: var(--color-disagree);
@@ -384,7 +422,7 @@ html, body {
     cursor: pointer;
 }
 
-.weight-item input[type="checkbox"] {
+.weight-item input[type='checkbox'] {
     width: 20px;
     height: 20px;
     accent-color: var(--color-accent);
@@ -402,9 +440,15 @@ html, body {
     font-weight: bold;
 }
 
-.answer-indicator.agree { color: var(--color-agree); }
-.answer-indicator.neutral { color: var(--color-neutral); }
-.answer-indicator.disagree { color: var(--color-disagree); }
+.answer-indicator.agree {
+    color: var(--color-agree);
+}
+.answer-indicator.neutral {
+    color: var(--color-neutral);
+}
+.answer-indicator.disagree {
+    color: var(--color-disagree);
+}
 
 /* ==========================================================================
    Whale Selection Phase
@@ -493,7 +537,11 @@ html, body {
 }
 
 .result-card.top-match {
-    background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(78, 205, 196, 0.05));
+    background: linear-gradient(
+        135deg,
+        rgba(78, 205, 196, 0.2),
+        rgba(78, 205, 196, 0.05)
+    );
     border: 2px solid var(--color-accent);
 }
 

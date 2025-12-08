@@ -1,51 +1,65 @@
 ﻿@page "/"
+@inject LocalizationService L
+@inject NavigationManager Navigation
+@implements IDisposable
 
-<PageTitle>Wal-O-Mat</PageTitle>
+<PageTitle>@L.Get("meta_title")</PageTitle>
+<HeadContent>
+    <meta name="description" content="@L.Get("meta_description")" />
+    <meta name="keywords" content="@(L.IsGerman ? "Wal Quiz, Persönlichkeitstest, Walarten, Orca, Blauwal, Buckelwal, lustiges Quiz" : "whale quiz, personality test, whale species, orca, blue whale, humpback, fun quiz")" />
+    <meta property="og:title" content="@L.Get("meta_title")" />
+    <meta property="og:description" content="@L.Get("meta_description")" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://www.wal-o-mat.net/" />
+</HeadContent>
 
 <div class="splash-container">
     <header class="splash-header">
         <div class="logo-area">
             <span class="whale-icon">🐋</span>
         </div>
-        <h1>Wal-O-Mat</h1>
-        <p class="tagline">Welcher Wal bist du?</p>
+        <h1>@L.Get("splash_title")</h1>
+        <p class="tagline">@L.Get("splash_tagline")</p>
     </header>
 
     <main class="splash-content">
         <div class="disclaimer-box">
             <p>
-                <strong>Hinweis:</strong> Dies ist <em>nicht</em> der offizielle 
-                <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">Wahl-O-Mat</a> 
-                der Bundeszentrale für politische Bildung.
+                <strong>@(L.IsGerman ? "Hinweis:" : "Note:")</strong> @((MarkupString)L.Get("splash_disclaimer_1"))
             </p>
             <p>
-                Auf der Suche nach dem echten Wahl-O-Mat? 
-                <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">Hier entlang →</a>
+                @L.Get("splash_disclaimer_2") 
+                <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">@L.Get("splash_disclaimer_link")</a>
             </p>
         </div>
 
         <div class="intro-text">
-            <p>
-                Beantworte ein paar Fragen über dich selbst und finde heraus, 
-                welcher Wal am besten zu deiner Persönlichkeit passt!
-            </p>
+            <p>@L.Get("splash_intro")</p>
         </div>
 
         <button class="start-button" @onclick="StartQuiz">
-            Quiz starten
+            @L.Get("splash_start")
         </button>
     </main>
 
     <footer class="splash-footer">
-        <a href="/about">Über dieses Projekt</a>
+        <a href="/about">@L.Get("about_link")</a>
     </footer>
 </div>
 
 @code {
-    [Inject] private NavigationManager Navigation { get; set; } = default!;
+    protected override void OnInitialized()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+    }
 
     private void StartQuiz()
     {
         Navigation.NavigateTo("/quiz");
+    }
+
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
     }
 }

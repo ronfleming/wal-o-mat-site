@@ -6,32 +6,6 @@ A personality quiz that matches you with whale species, inspired by Germany's [W
 
 ---
 
-## Deutsch
-
-### Was ist das?
-
-Wal-O-Mat ist ein Persönlichkeitsquiz, das als liebevolle Parodie des deutschen Wahl-O-Mat entstanden ist. Statt politischer Parteien werden hier Walarten verglichen.
-
-### Wie funktioniert es?
-
-Das Quiz präsentiert eine Reihe von Aussagen. Du kannst jeder Aussage zustimmen, neutral bleiben oder nicht zustimmen. Basierend auf deinen Antworten wird berechnet, welche Walart am besten zu dir passt.
-
-**Punktevergabe** (identisch zum echten Wahl-O-Mat):
-- **2 Punkte** bei exakter Übereinstimmung
-- **1 Punkt** bei Annäherung (einer neutral)
-- **0 Punkte** bei Gegensätzen
-
-Gewichtete Fragen zählen doppelt. Übersprungene Fragen werden nicht gewertet.
-
-### Technologie
-
-- **Frontend:** Blazor WebAssembly
-- **Backend:** ASP.NET Core (Hosted-Modell)
-- **Hosting:** Azure App Service
-- **CI/CD:** GitHub Actions
-
----
-
 ## English
 
 ### What is this?
@@ -43,18 +17,48 @@ Wal-O-Mat is a personality quiz inspired by Germany's Wahl-O-Mat voting advice a
 The quiz presents a series of statements. You can agree, stay neutral, or disagree with each one. Based on your answers, we calculate which whale species best matches your personality.
 
 **Scoring** (identical to the real Wahl-O-Mat):
-- **2 points** for exact match
-- **1 point** for adjacent positions (one is neutral)
-- **0 points** for opposite positions
+
+-   **2 points** for exact match
+-   **1 point** for adjacent positions (one is neutral)
+-   **0 points** for opposite positions
 
 Weighted questions count double. Skipped questions are excluded.
 
 ### Technology
 
-- **Frontend:** Blazor WebAssembly
-- **Backend:** ASP.NET Core (Hosted model)
-- **Hosting:** Azure App Service
-- **CI/CD:** GitHub Actions
+-   **Frontend:** Blazor WebAssembly
+-   **Backend:** ASP.NET Core (Hosted model)
+-   **Hosting:** Azure App Service
+-   **CI/CD:** GitHub Actions
+-   **i18n:** German/English with runtime toggle
+
+---
+
+## Deutsch
+
+### Was ist das?
+
+Wal-O-Mat ist ein Persönlichkeitsquiz, das als liebevolle Parodie des deutschen Wahl-O-Mat entstanden ist. Statt politischer Parteien werden hier Walarten verglichen.
+
+### Wie funktioniert es?
+
+Das Quiz präsentiert eine Reihe von Aussagen. Du kannst jeder Aussage zustimmen, neutral bleiben oder nicht zustimmen. Basierend auf deinen Antworten wird berechnet, welche Walart am besten zu dir passt.
+
+**Punktevergabe** (identisch zum echten Wahl-O-Mat):
+
+-   **2 Punkte** bei exakter Übereinstimmung
+-   **1 Punkt** bei Annäherung (einer neutral)
+-   **0 Punkte** bei Gegensätzen
+
+Gewichtete Fragen zählen doppelt. Übersprungene Fragen werden nicht gewertet.
+
+### Technologie
+
+-   **Frontend:** Blazor WebAssembly
+-   **Backend:** ASP.NET Core (Hosted-Modell)
+-   **Hosting:** Azure App Service
+-   **CI/CD:** GitHub Actions
+-   **i18n:** Deutsch/Englisch mit Sprachumschalter
 
 ---
 
@@ -75,4 +79,3 @@ dotnet watch run
 ## License
 
 This is a personal portfolio project. The Wahl-O-Mat concept and name belong to the Bundeszentrale für politische Bildung (bpb).
-

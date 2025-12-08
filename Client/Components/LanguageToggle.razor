@@ -1,21 +1,19 @@
-﻿@inherits LayoutComponentBase
 @inject LocalizationService L
 @implements IDisposable
 
-<div class="app-container">
-    <div class="global-language-toggle">
-        <LanguageToggle />
-    </div>
-    
-    <main class="main-content">
-        @Body
-    </main>
-</div>
+<button class="language-toggle" @onclick="Toggle">
+    @(L.IsGerman ? "🇬🇧 EN" : "🇩🇪 DE")
+</button>
 
 @code {
     protected override void OnInitialized()
     {
         L.OnLanguageChanged += StateHasChanged;
+    }
+
+    private void Toggle()
+    {
+        L.ToggleLanguage();
     }
 
     public void Dispose()

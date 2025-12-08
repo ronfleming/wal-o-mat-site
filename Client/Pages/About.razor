@@ -1,64 +1,57 @@
 @page "/about"
+@inject LocalizationService L
+@implements IDisposable
 
-<PageTitle>Über Wal-O-Mat</PageTitle>
+<PageTitle>@L.Get("about_title") – Wal-O-Mat</PageTitle>
+<HeadContent>
+    <meta name="description" content="@L.Get("meta_description")" />
+    <link rel="canonical" href="https://www.wal-o-mat.net/about" />
+</HeadContent>
 
 <div class="about-container">
-    <h1>Über Wal-O-Mat</h1>
+    <h1>@L.Get("about_title")</h1>
 
     <section>
-        <h2>Was ist das?</h2>
-        <p>
-            Wal-O-Mat ist ein Persönlichkeitsquiz, das als liebevolle Parodie 
-            des deutschen <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">Wahl-O-Mat</a> 
-            entstanden ist—einem Tool der Bundeszentrale für politische Bildung, 
-            das Wählern hilft, ihre Positionen mit denen der Parteien zu vergleichen.
-        </p>
-        <p>
-            Hier vergleichen wir stattdessen deine Persönlichkeit mit verschiedenen Walarten. 
-            Denn wer wollte nicht schon immer wissen, ob er eher ein geselliger Orca 
-            oder ein nachdenklicher Blauwal ist?
-        </p>
+        <h2>@L.Get("about_what_title")</h2>
+        <p>@((MarkupString)L.Get("about_what_1"))</p>
+        <p>@L.Get("about_what_2")</p>
     </section>
 
     <section>
-        <h2>Wie funktioniert es?</h2>
-        <p>
-            Das Quiz präsentiert dir eine Reihe von Aussagen. Du kannst jeder Aussage 
-            zustimmen, neutral bleiben oder nicht zustimmen. Basierend auf deinen Antworten 
-            berechnen wir, welche Walart am besten zu dir passt.
-        </p>
-        <p>
-            Du kannst auch bestimmte Fragen als besonders wichtig markieren. 
-            Diese zählen dann doppelt in der Auswertung.
-        </p>
+        <h2>@L.Get("about_how_title")</h2>
+        <p>@L.Get("about_how_1")</p>
+        <p>@L.Get("about_how_2")</p>
     </section>
 
     <section>
-        <h2>Punktevergabe</h2>
-        <p>
-            Die Punktevergabe folgt dem gleichen Prinzip wie beim echten Wahl-O-Mat:
-        </p>
+        <h2>@L.Get("about_scoring_title")</h2>
+        <p>@L.Get("about_scoring_intro")</p>
         <ul>
-            <li><strong>2 Punkte</strong> bei exakter Übereinstimmung (z.B. beide „Stimme zu")</li>
-            <li><strong>1 Punkt</strong> bei Annäherung (z.B. du „Stimme zu", Wal „Neutral")</li>
-            <li><strong>0 Punkte</strong> bei Gegensätzen (z.B. du „Stimme zu", Wal „Stimme nicht zu")</li>
+            <li>@((MarkupString)L.Get("about_scoring_2pts"))</li>
+            <li>@((MarkupString)L.Get("about_scoring_1pt"))</li>
+            <li>@((MarkupString)L.Get("about_scoring_0pts"))</li>
         </ul>
-        <p>
-            Gewichtete Fragen zählen doppelt. Übersprungene Fragen werden nicht gewertet.
-        </p>
+        <p>@L.Get("about_scoring_note")</p>
     </section>
 
     <section>
-        <h2>Technischer Hintergrund</h2>
-        <p>
-            Dieses Projekt wurde mit <strong>Blazor WebAssembly</strong> entwickelt und 
-            auf <strong>Azure App Service</strong> gehostet. Der Quellcode ist auf 
-            <a href="https://github.com/ronfleming/wal-o-mat-site" target="_blank" rel="noopener">GitHub</a> 
-            verfügbar.
-        </p>
+        <h2>@L.Get("about_tech_title")</h2>
+        <p>@((MarkupString)L.Get("about_tech_text"))</p>
     </section>
 
     <div class="back-link">
-        <a href="/">← Zurück zur Startseite</a>
+        <a href="/">@L.Get("back_home")</a>
     </div>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}

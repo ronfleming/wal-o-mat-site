@@ -14,4 +14,7 @@ builder.Services.AddScoped<QuizDataService>();
 builder.Services.AddScoped<QuizStateService>();
 builder.Services.AddScoped<MatchingService>();
 
+// Localization (singleton so language persists across navigation)
+builder.Services.AddSingleton<LocalizationService>();
+
 await builder.Build().RunAsync();

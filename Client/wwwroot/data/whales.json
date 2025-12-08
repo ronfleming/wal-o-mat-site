@@ -1,83 +1,112 @@
 [
   {
     "id": "orca",
-    "name": "Orca",
+    "nameDe": "Orca",
+    "nameEn": "Orca",
     "scientificName": "Orcinus orca",
-    "description": "Hochintelligent, sozial und strategisch. Orcas leben in engen Familienverbänden und sind für ihre ausgeklügelten Jagdtechniken bekannt.",
+    "descriptionDe": "Hochintelligent, sozial und strategisch. Orcas leben in engen Familienverbänden und sind für ihre ausgeklügelten Jagdtechniken bekannt.",
+    "descriptionEn": "Highly intelligent, social, and strategic. Orcas live in tight family groups and are known for their sophisticated hunting techniques.",
     "imagePath": "/images/whales/orca1.webp",
-    "traits": ["Sozial", "Strategisch", "Familienorientiert", "Anpassungsfähig"]
+    "traitsDe": ["Sozial", "Strategisch", "Familienorientiert", "Anpassungsfähig"],
+    "traitsEn": ["Social", "Strategic", "Family-oriented", "Adaptable"]
   },
   {
     "id": "blue",
-    "name": "Blauwal",
+    "nameDe": "Blauwal",
+    "nameEn": "Blue Whale",
     "scientificName": "Balaenoptera musculus",
-    "description": "Das größte Tier, das je gelebt hat. Blauwal sind sanfte Riesen, die weite Strecken allein zurücklegen und eine ruhige Präsenz ausstrahlen.",
+    "descriptionDe": "Das größte Tier, das je gelebt hat. Blauwale sind sanfte Riesen, die weite Strecken allein zurücklegen und eine ruhige Präsenz ausstrahlen.",
+    "descriptionEn": "The largest animal to ever live. Blue whales are gentle giants that travel vast distances alone and radiate a calm presence.",
     "imagePath": "/images/whales/blue1.webp",
-    "traits": ["Ruhig", "Unabhängig", "Ausdauernd", "Beeindruckend"]
+    "traitsDe": ["Ruhig", "Unabhängig", "Ausdauernd", "Beeindruckend"],
+    "traitsEn": ["Calm", "Independent", "Enduring", "Impressive"]
   },
   {
     "id": "humpback",
-    "name": "Buckelwal",
+    "nameDe": "Buckelwal",
+    "nameEn": "Humpback Whale",
     "scientificName": "Megaptera novaeangliae",
-    "description": "Bekannt für ihre komplexen Gesänge und akrobatischen Sprünge. Buckelwale sind kreativ und ausdrucksstark.",
+    "descriptionDe": "Bekannt für ihre komplexen Gesänge und akrobatischen Sprünge. Buckelwale sind kreativ und ausdrucksstark.",
+    "descriptionEn": "Known for their complex songs and acrobatic breaches. Humpback whales are creative and expressive.",
     "imagePath": "/images/whales/humpback1.webp",
-    "traits": ["Kreativ", "Ausdrucksstark", "Verspielt", "Kommunikativ"]
+    "traitsDe": ["Kreativ", "Ausdrucksstark", "Verspielt", "Kommunikativ"],
+    "traitsEn": ["Creative", "Expressive", "Playful", "Communicative"]
   },
   {
     "id": "beluga",
-    "name": "Beluga",
+    "nameDe": "Beluga",
+    "nameEn": "Beluga Whale",
     "scientificName": "Delphinapterus leucas",
-    "description": "Der 'Kanarienvogel der Meere' ist bekannt für seine Geselligkeit und sein breites Repertoire an Lauten. Belugas sind freundlich und neugierig.",
+    "descriptionDe": "Der 'Kanarienvogel der Meere' ist bekannt für seine Geselligkeit und sein breites Repertoire an Lauten. Belugas sind freundlich und neugierig.",
+    "descriptionEn": "The 'canary of the sea' is known for its sociability and wide range of vocalizations. Belugas are friendly and curious.",
     "imagePath": "/images/whales/beluga1.webp",
-    "traits": ["Gesellig", "Neugierig", "Freundlich", "Gesprächig"]
+    "traitsDe": ["Gesellig", "Neugierig", "Freundlich", "Gesprächig"],
+    "traitsEn": ["Sociable", "Curious", "Friendly", "Talkative"]
   },
   {
     "id": "sperm",
-    "name": "Pottwal",
+    "nameDe": "Pottwal",
+    "nameEn": "Sperm Whale",
     "scientificName": "Physeter macrocephalus",
-    "description": "Tieftaucher mit dem größten Gehirn aller Tiere. Pottwale sind nachdenklich, geduldig und können extremem Druck standhalten.",
+    "descriptionDe": "Tieftaucher mit dem größten Gehirn aller Tiere. Pottwale sind nachdenklich, geduldig und können extremem Druck standhalten.",
+    "descriptionEn": "Deep diver with the largest brain of any animal. Sperm whales are thoughtful, patient, and can withstand extreme pressure.",
     "imagePath": "/images/whales/sperm1.webp",
-    "traits": ["Nachdenklich", "Geduldig", "Tiefgründig", "Beharrlich"]
+    "traitsDe": ["Nachdenklich", "Geduldig", "Tiefgründig", "Beharrlich"],
+    "traitsEn": ["Thoughtful", "Patient", "Profound", "Persistent"]
   },
   {
     "id": "narwhal",
-    "name": "Narwal",
+    "nameDe": "Narwal",
+    "nameEn": "Narwhal",
     "scientificName": "Monodon monoceros",
-    "description": "Das 'Einhorn der Meere' mit seinem charakteristischen Stoßzahn. Narwale sind einzigartig und etwas geheimnisvoll.",
+    "descriptionDe": "Das 'Einhorn der Meere' mit seinem charakteristischen Stoßzahn. Narwale sind einzigartig und etwas geheimnisvoll.",
+    "descriptionEn": "The 'unicorn of the sea' with its distinctive tusk. Narwhals are unique and somewhat mysterious.",
     "imagePath": "/images/whales/narwhal1.webp",
-    "traits": ["Einzigartig", "Geheimnisvoll", "Anmutig", "Selten"]
+    "traitsDe": ["Einzigartig", "Geheimnisvoll", "Anmutig", "Selten"],
+    "traitsEn": ["Unique", "Mysterious", "Graceful", "Rare"]
   },
   {
     "id": "gray",
-    "name": "Grauwal",
+    "nameDe": "Grauwal",
+    "nameEn": "Gray Whale",
     "scientificName": "Eschrichtius robustus",
-    "description": "Unternimmt eine der längsten Wanderungen aller Säugetiere. Grauwale sind ausdauernd, traditionsbewusst und bodenständig.",
+    "descriptionDe": "Unternimmt eine der längsten Wanderungen aller Säugetiere. Grauwale sind ausdauernd, traditionsbewusst und bodenständig.",
+    "descriptionEn": "Undertakes one of the longest migrations of any mammal. Gray whales are enduring, traditional, and grounded.",
     "imagePath": "/images/whales/gray1.webp",
-    "traits": ["Ausdauernd", "Traditionsbewusst", "Bodenständig", "Zielstrebig"]
+    "traitsDe": ["Ausdauernd", "Traditionsbewusst", "Bodenständig", "Zielstrebig"],
+    "traitsEn": ["Enduring", "Traditional", "Grounded", "Determined"]
   },
   {
     "id": "pilot",
-    "name": "Grindwal",
+    "nameDe": "Grindwal",
+    "nameEn": "Pilot Whale",
     "scientificName": "Globicephala melas",
-    "description": "Lebt in stabilen sozialen Gruppen mit starker Bindung. Grindwale sind loyal, gemeinschaftsorientiert und folgen bewährten Führern.",
+    "descriptionDe": "Lebt in stabilen sozialen Gruppen mit starker Bindung. Grindwale sind loyal, gemeinschaftsorientiert und folgen bewährten Führern.",
+    "descriptionEn": "Lives in stable social groups with strong bonds. Pilot whales are loyal, community-oriented, and follow trusted leaders.",
     "imagePath": "/images/whales/pilot1.webp",
-    "traits": ["Loyal", "Gemeinschaftsorientiert", "Vertrauensvoll", "Beständig"]
+    "traitsDe": ["Loyal", "Gemeinschaftsorientiert", "Vertrauensvoll", "Beständig"],
+    "traitsEn": ["Loyal", "Community-oriented", "Trusting", "Steady"]
   },
   {
     "id": "minke",
-    "name": "Zwergwal",
+    "nameDe": "Zwergwal",
+    "nameEn": "Minke Whale",
     "scientificName": "Balaenoptera acutorostrata",
-    "description": "Klein, schnell und wendig. Zwergwale sind neugierig, unabhängig und oft allein oder in kleinen Gruppen unterwegs.",
+    "descriptionDe": "Klein, schnell und wendig. Zwergwale sind neugierig, unabhängig und oft allein oder in kleinen Gruppen unterwegs.",
+    "descriptionEn": "Small, fast, and agile. Minke whales are curious, independent, and often travel alone or in small groups.",
     "imagePath": "/images/whales/minke1.webp",
-    "traits": ["Wendig", "Unabhängig", "Neugierig", "Schnell"]
+    "traitsDe": ["Wendig", "Unabhängig", "Neugierig", "Schnell"],
+    "traitsEn": ["Agile", "Independent", "Curious", "Quick"]
   },
   {
     "id": "bowhead",
-    "name": "Grönlandwal",
+    "nameDe": "Grönlandwal",
+    "nameEn": "Bowhead Whale",
     "scientificName": "Balaena mysticetus",
-    "description": "Kann über 200 Jahre alt werden – das langlebigste Säugetier. Grönlandwale sind weise, besonnen und widerstandsfähig.",
+    "descriptionDe": "Kann über 200 Jahre alt werden – das langlebigste Säugetier. Grönlandwale sind weise, besonnen und widerstandsfähig.",
+    "descriptionEn": "Can live over 200 years – the longest-lived mammal. Bowhead whales are wise, measured, and resilient.",
     "imagePath": "/images/whales/bowhead1.webp",
-    "traits": ["Weise", "Besonnen", "Widerstandsfähig", "Langlebig"]
+    "traitsDe": ["Weise", "Besonnen", "Widerstandsfähig", "Langlebig"],
+    "traitsEn": ["Wise", "Measured", "Resilient", "Long-lived"]
   }
 ]
-
