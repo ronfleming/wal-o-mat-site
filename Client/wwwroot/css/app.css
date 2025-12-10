@@ -108,6 +108,10 @@ body {
     background: rgba(255, 255, 255, 0.08);
 }
 
+.flag-button.active {
+    background: rgba(255, 255, 255, 0.16);
+}
+
 .flag-button:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
@@ -116,6 +120,7 @@ body {
 .flag-button.active .flag-icon {
     transform: scale(1.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--color-accent);
 }
 
 .splash-container {
