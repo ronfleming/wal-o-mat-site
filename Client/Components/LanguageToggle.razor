@@ -1,9 +1,24 @@
 @inject LocalizationService L
 @implements IDisposable
 
-<button class="language-toggle" @onclick="Toggle">
-    @(L.IsGerman ? "🇬🇧 EN" : "🇩🇪 DE")
-</button>
+<div class="language-toggle"
+     role="group"
+     aria-label="@(L.IsGerman ? "Sprache auswählen" : "Choose language")">
+    <button type="button"
+            class="@GetButtonClass("de")"
+            aria-label="Deutsch"
+            aria-pressed="@L.IsGerman"
+            @onclick='() => SetLanguage("de")'>
+        <img src="images/flags/de.svg" alt="Deutsch" class="flag-icon" />
+    </button>
+    <button type="button"
+            class="@GetButtonClass("en")"
+            aria-label="English"
+            aria-pressed="@L.IsEnglish"
+            @onclick='() => SetLanguage("en")'>
+        <img src="images/flags/gb.svg" alt="English" class="flag-icon" />
+    </button>
+</div>
 
 @code {
     protected override void OnInitialized()
@@ -11,9 +26,15 @@
         L.OnLanguageChanged += StateHasChanged;
     }
 
-    private void Toggle()
+    private void SetLanguage(string language)
     {
-        L.ToggleLanguage();
+        L.SetLanguage(language);
+    }
+
+    private string GetButtonClass(string language)
+    {
+        var isActive = L.CurrentLanguage == language;
+        return $"flag-button{(isActive ? " active" : string.Empty)}";
     }
 
     public void Dispose()
