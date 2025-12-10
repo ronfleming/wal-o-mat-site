@@ -230,6 +230,7 @@ body {
     border-radius: var(--radius-large);
     padding: 2.5rem;
     box-shadow: var(--shadow-medium);
+    color: var(--color-text);
 }
 
 .about-container h1 {
@@ -282,6 +283,7 @@ body {
     border-radius: var(--radius-large);
     padding: 2rem;
     box-shadow: var(--shadow-medium);
+    color: var(--color-text);
 }
 
 .quiz-header {
@@ -424,6 +426,7 @@ body {
     border-radius: var(--radius-large);
     padding: 2rem;
     box-shadow: var(--shadow-medium);
+    color: var(--color-text);
 }
 
 .weighting-container header,
