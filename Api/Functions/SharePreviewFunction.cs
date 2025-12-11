@@ -6,7 +6,7 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Azure.Data.Tables;
 using WalOMat.Api.Entities;
-using WalOMat.Shared.Models;
+using WalOMat.Api.Models;
 
 namespace WalOMat.Api.Functions;
 
@@ -102,8 +102,8 @@ public class SharePreviewFunction
         var resultId = entity.RowKey;
         
         // Parse top result
-        var results = JsonSerializer.Deserialize<List<MatchResult>>(entity.ResultsJson);
-        var topResult = results?.OrderByDescending(r => r.MatchPercentage).FirstOrDefault();
+        var results = JsonSerializer.Deserialize<List<ResultDto>>(entity.ResultsJson);
+        var topResult = results?.OrderByDescending(r => r.Percentage).FirstOrDefault();
         
         if (topResult == null)
         {
@@ -115,7 +115,7 @@ public class SharePreviewFunction
         var imageUrl = $"{baseUrl}/{whaleData.ImagePath}";
         var pageUrl = $"{baseUrl}/result/{resultId}";
         var title = $"Mein Wal-O-Mat Ergebnis: {whaleData.NameDe}";
-        var description = $"Ich bin {topResult.MatchPercentage:F0}% {whaleData.NameDe}! Finde heraus, welcher Wal du bist.";
+        var description = $"Ich bin {topResult.Percentage:F0}% {whaleData.NameDe}! Finde heraus, welcher Wal du bist.";
 
         return $@"<!DOCTYPE html>
 <html lang=""de"">
