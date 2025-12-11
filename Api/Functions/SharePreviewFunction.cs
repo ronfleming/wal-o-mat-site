@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -50,9 +51,9 @@ public class SharePreviewFunction
         try
         {
             var tableClient = _tableServiceClient.GetTableClient("QuizResults");
-            var entity = await tableClient.GetEntityAsync<QuizResultEntity>("result", id);
+            var entity = await tableClient.GetEntityAsync<QuizResultEntity>("results", id);
             
-            if (entity?.Value == null || entity.Value.IsExpired())
+            if (entity?.Value == null || entity.Value.ExpiresAt < DateTime.UtcNow)
             {
                 return await CreateNotFoundResponse(req);
             }
@@ -101,7 +102,7 @@ public class SharePreviewFunction
         var resultId = entity.RowKey;
         
         // Parse top result
-        var results = System.Text.Json.JsonSerializer.Deserialize<List<WhaleResult>>(entity.ResultsJson);
+        var results = JsonSerializer.Deserialize<List<WhaleResult>>(entity.ResultsJson);
         var topResult = results?.OrderByDescending(r => r.Percentage).FirstOrDefault();
         
         if (topResult == null)
