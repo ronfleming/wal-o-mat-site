@@ -99,7 +99,19 @@ public class LocalizationService
         ["results_title"] = "Dein Ergebnis",
         ["results_intro"] = "So gut passt du zu den verschiedenen Walen:",
         ["results_restart"] = "Nochmal spielen",
-        ["results_home"] = "Zur Startseite"
+        ["results_home"] = "Zur Startseite",
+        
+        // Sharing
+        ["share_results"] = "Ergebnis teilen",
+        ["share_saving"] = "Wird gespeichert...",
+        ["share_success"] = "Link erstellt! Teile ihn mit deinen Freunden:",
+        ["share_copy"] = "Link kopieren",
+        ["share_copied"] = "Kopiert! ✓",
+        ["shared_result_title"] = "Mein Wal",
+        ["shared_result_top"] = "Die höchste Übereinstimmung war:",
+        ["shared_result_other_matches"] = "Weitere Top-Übereinstimmungen:",
+        ["shared_result_expired"] = "Dieser Link ist abgelaufen.",
+        ["shared_result_take_quiz"] = "Quiz selbst machen →"
     };
 
     // English strings
@@ -167,7 +179,19 @@ public class LocalizationService
         ["results_title"] = "Your Result",
         ["results_intro"] = "Here's how well you match with each whale:",
         ["results_restart"] = "Play again",
-        ["results_home"] = "Back to home"
+        ["results_home"] = "Back to home",
+        
+        // Sharing
+        ["share_results"] = "Share result",
+        ["share_saving"] = "Saving...",
+        ["share_success"] = "Link created! Share it with your friends:",
+        ["share_copy"] = "Copy link",
+        ["share_copied"] = "Copied! ✓",
+        ["shared_result_title"] = "My Whale",
+        ["shared_result_top"] = "Your top match was:",
+        ["shared_result_other_matches"] = "Other top matches:",
+        ["shared_result_expired"] = "This link has expired.",
+        ["shared_result_take_quiz"] = "Take the quiz yourself →"
     };
 }
 

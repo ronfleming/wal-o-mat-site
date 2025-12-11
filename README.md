@@ -4,6 +4,24 @@
 
 A personality quiz that matches you with whale species, inspired by Germany's [Wahl-O-Mat](https://www.wahl-o-mat.de).
 
+**🚀 Local Development Quick Start:**
+
+```powershell
+# Install prerequisites (one-time)
+npm install -g azurite
+npm install -g azure-functions-core-tools@4
+
+# Enable script execution (one-time, if needed)
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Start all services
+.\start-local.ps1
+```
+
+Open http://localhost:5042 — Press Ctrl+C to stop all services.
+
+> **Note:** If you get "execution policy" errors, see [troubleshooting](#troubleshooting) below.
+
 ---
 
 ## English
@@ -72,6 +90,20 @@ cd Client
 dotnet watch run
 
 # Open http://localhost:5042
+```
+
+## Troubleshooting
+
+### PowerShell script execution errors
+
+If `.\start-local.ps1` fails with "execution policy" error:
+
+```powershell
+# Option 1: Enable scripts for your user (recommended)
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Option 2: Bypass for single execution
+powershell -ExecutionPolicy Bypass -File .\start-local.ps1
 ```
 
 ## License

@@ -1,6 +1,8 @@
 @inject QuizStateService State
 @inject LocalizationService L
 @inject NavigationManager Navigation
+@inject ShareService Share
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <div class="results-container">
@@ -34,7 +36,25 @@
         }
     </div>
 
+    @if (!string.IsNullOrEmpty(_shareUrl))
+    {
+        <div class="share-url-container">
+            <strong style="color: var(--color-accent); margin-bottom: 0.5rem;">🎉 @L.Get("share_success")</strong>
+            <input type="text" readonly value="@_shareUrl" class="share-url-input" @ref="_shareUrlInput" @onclick="SelectAll" />
+            <button class="secondary-btn" @onclick="CopyShareUrl" style="align-self: center;">
+                @(_copied ? L.Get("share_copied") : L.Get("share_copy"))
+            </button>
+        </div>
+    }
+
     <footer>
+        @if (string.IsNullOrEmpty(_shareUrl))
+        {
+            <button class="primary-btn" @onclick="ShareResults" disabled="@_isSharing">
+                @(_isSharing ? L.Get("share_saving") : L.Get("share_results"))
+            </button>
+        }
+        
         <button class="secondary-btn" @onclick="Restart">
             @L.Get("results_restart")
         </button>
@@ -45,9 +65,71 @@
 </div>
 
 @code {
+    private bool _isSharing;
+    private string? _shareUrl;
+    private bool _copied;
+    private ElementReference _shareUrlInput;
+
     protected override void OnInitialized()
     {
         L.OnLanguageChanged += StateHasChanged;
+    }
+
+    private async Task ShareResults()
+    {
+        if (State.Results == null || State.QuizData == null) return;
+
+        _isSharing = true;
+        StateHasChanged();
+
+        try
+        {
+            var request = new SaveResultRequest
+            {
+                Language = L.CurrentLanguage,
+                Answers = State.Answers.Select(a => new AnswerDto
+                {
+                    QuestionId = a.QuestionId,
+                    Position = a.Position,
+                    IsWeighted = a.IsWeighted
+                }).ToList(),
+                SelectedWhales = State.SelectedWhaleIds.ToList(),
+                Results = State.Results.Select(r => new ResultDto
+                {
+                    WhaleId = r.WhaleId,
+                    Percentage = r.MatchPercentage
+                }).ToList()
+            };
+
+            var response = await Share.SaveResultAsync(request);
+            if (response != null)
+            {
+                _shareUrl = response.ShareUrl;
+            }
+        }
+        finally
+        {
+            _isSharing = false;
+            StateHasChanged();
+        }
+    }
+
+    private void SelectAll()
+    {
+        JSRuntime.InvokeVoidAsync("eval", $"document.querySelector('.share-url-input').select()");
+    }
+
+    private async Task CopyShareUrl()
+    {
+        // Note: Clipboard API requires HTTPS or localhost
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", _shareUrl);
+        _copied = true;
+        StateHasChanged();
+        
+        // Reset after 2 seconds
+        await Task.Delay(2000);
+        _copied = false;
+        StateHasChanged();
     }
 
     private void Restart()

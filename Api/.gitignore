@@ -1,0 +1,8 @@
+## Ignore Azure Functions local settings and runtime
+local.settings.json
+__blobstorage__/
+__queuestorage__/
+__azurite_db*__.json
+.python_packages/
+.venv/
+

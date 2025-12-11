@@ -1,0 +1,154 @@
+@page "/result/{id}"
+@inject ShareService Share
+@inject QuizDataService QuizData
+@inject LocalizationService L
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<PageTitle>@L.Get("shared_result_title") – Wal-O-Mat</PageTitle>
+<HeadContent>
+    @if (_result != null && !_result.IsExpired && _result.Results?.Any() == true)
+    {
+        var topResult = _result.Results.First();
+        var topWhale = _quizData?.Whales.FirstOrDefault(w => w.Id == topResult.WhaleId);
+        var whaleName = topWhale?.GetName("de") ?? "Unbekannter Wal";
+        var description = $"Ich bin {topResult.Percentage:F0}% {whaleName}! Finde heraus, welcher Wal du bist.";
+        var imageUrl = $"{Navigation.BaseUri.TrimEnd('/')}/{GetWhaleImage(topResult.WhaleId)}";
+        var pageUrl = Navigation.Uri;
+        
+        <meta property="og:title" content="@($"Mein Wal-O-Mat Ergebnis: {whaleName}")" />
+        <meta property="og:description" content="@description" />
+        <meta property="og:image" content="@imageUrl" />
+        <meta property="og:url" content="@pageUrl" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="@($"Mein Wal-O-Mat Ergebnis: {whaleName}")" />
+        <meta name="twitter:description" content="@description" />
+        <meta name="twitter:image" content="@imageUrl" />
+    }
+</HeadContent>
+
+@if (_loading)
+{
+    <div class="loading">@L.Get("quiz_loading")</div>
+}
+else if (_expired)
+{
+    <div class="results-container">
+        <header>
+            <h2>@L.Get("shared_result_expired")</h2>
+            <p>@L.Get("splash_intro")</p>
+        </header>
+        <footer>
+            <button class="primary-btn" @onclick="TakeQuiz">
+                @L.Get("shared_result_take_quiz")
+            </button>
+        </footer>
+    </div>
+}
+else if (_result != null && _quizData != null)
+{
+    var topThree = _result.Results?.OrderByDescending(r => r.Percentage).Take(3).ToList() ?? new();
+    
+    <div class="results-container">
+        <header>
+            <h2>@L.Get("shared_result_title")</h2>
+            <p>@L.Get("shared_result_top")</p>
+        </header>
+
+        @if (topThree.Any())
+        {
+            var topResult = topThree.First();
+            var topWhale = _quizData.Whales.FirstOrDefault(w => w.Id == topResult.WhaleId);
+            
+            <div class="top-match-highlight">
+                <img src="@GetWhaleImage(topResult.WhaleId)" alt="@(topWhale?.GetName(L.CurrentLanguage) ?? "Whale")" class="top-whale-image" />
+                <h3>@(topWhale?.GetName(L.CurrentLanguage) ?? topResult.WhaleId)</h3>
+                <div class="match-percent-large">@topResult.Percentage.ToString("F0")%</div>
+                @if (topWhale != null)
+                {
+                    <p class="whale-description">@topWhale.GetDescription(L.CurrentLanguage)</p>
+                }
+            </div>
+
+            @if (topThree.Count > 1)
+            {
+                <div class="other-matches">
+                    <h4>@L.Get("shared_result_other_matches")</h4>
+                    @foreach (var result in topThree.Skip(1))
+                    {
+                        var whale = _quizData.Whales.FirstOrDefault(w => w.Id == result.WhaleId);
+                        <div class="other-match-card">
+                            <div class="other-match-header">
+                                <span class="other-match-name">@whale?.GetName(L.CurrentLanguage)</span>
+                                <span class="other-match-percent">@result.Percentage.ToString("F0")%</span>
+                            </div>
+                            @if (whale != null)
+                            {
+                                var traits = whale.GetTraits(L.CurrentLanguage).Take(2);
+                                <div class="other-match-traits">
+                                    @string.Join(" · ", traits)
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+
+        <footer>
+            <button class="primary-btn" @onclick="TakeQuiz">
+                @L.Get("shared_result_take_quiz")
+            </button>
+            <button class="secondary-btn" @onclick="GoHome">
+                @L.Get("results_home")
+            </button>
+        </footer>
+    </div>
+}
+
+@code {
+    [Parameter] public string Id { get; set; } = string.Empty;
+
+    private bool _loading = true;
+    private bool _expired;
+    private GetResultResponse? _result;
+    private QuizData? _quizData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+        
+        _quizData = await QuizData.LoadQuizDataAsync();
+        _result = await Share.GetResultAsync(Id);
+        
+        if (_result == null || _result.IsExpired)
+        {
+            _expired = true;
+        }
+        
+        _loading = false;
+    }
+
+    private string GetWhaleImage(string whaleId)
+    {
+        var whale = _quizData?.Whales.FirstOrDefault(w => w.Id == whaleId);
+        return whale?.ImagePath ?? "images/whales/orca1.webp";
+    }
+
+    private void TakeQuiz()
+    {
+        Navigation.NavigateTo("/quiz");
+    }
+
+    private void GoHome()
+    {
+        Navigation.NavigateTo("/");
+    }
+
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}
+

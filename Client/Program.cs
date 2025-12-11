@@ -17,4 +17,7 @@ builder.Services.AddScoped<MatchingService>();
 // Localization (singleton so language persists across navigation)
 builder.Services.AddSingleton<LocalizationService>();
 
+// Share service (for API calls)
+builder.Services.AddScoped<ShareService>();
+
 await builder.Build().RunAsync();
