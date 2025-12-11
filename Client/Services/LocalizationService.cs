@@ -71,6 +71,13 @@ public class LocalizationService
         ["about_scoring_note"] = "Gewichtete Fragen zählen doppelt. Übersprungene Fragen werden nicht gewertet.",
         ["about_tech_title"] = "Technischer Hintergrund",
         ["about_tech_text"] = "Dieses Projekt wurde mit <strong>Blazor WebAssembly</strong> entwickelt und auf <strong>Azure App Service</strong> gehostet. Der Quellcode ist auf <a href=\"https://github.com/ronfleming/wal-o-mat-site\" target=\"_blank\" rel=\"noopener\">GitHub</a> verfügbar.",
+        ["about_privacy_title"] = "Datenschutz & Analytics",
+        ["about_privacy_intro"] = "Wir verwenden Azure Application Insights, um die Nutzung unserer Website zu verstehen (z. B. Seitenaufrufe, geografische Region).",
+        ["about_privacy_no_cookies"] = "Keine Tracking-Cookies",
+        ["about_privacy_anonymous"] = "IP-Adressen werden anonymisiert",
+        ["about_privacy_retention"] = "Daten werden nach 90 Tagen gelöscht",
+        ["about_privacy_no_sharing"] = "Keine Weitergabe an Dritte",
+        ["about_privacy_rights"] = "Bei Fragen zum Datenschutz oder zur Ausübung deiner Rechte (Auskunft, Löschung) kontaktiere uns über GitHub.",
         
         // Quiz
         ["quiz_loading"] = "Lade Fragen...",
@@ -151,6 +158,13 @@ public class LocalizationService
         ["about_scoring_note"] = "Weighted questions count double. Skipped questions are not scored.",
         ["about_tech_title"] = "Technical Background",
         ["about_tech_text"] = "This project was built with <strong>Blazor WebAssembly</strong> and hosted on <strong>Azure App Service</strong>. Source code is available on <a href=\"https://github.com/ronfleming/wal-o-mat-site\" target=\"_blank\" rel=\"noopener\">GitHub</a>.",
+        ["about_privacy_title"] = "Privacy & Analytics",
+        ["about_privacy_intro"] = "We use Azure Application Insights to understand website usage (e.g., page views, geographic region).",
+        ["about_privacy_no_cookies"] = "No tracking cookies",
+        ["about_privacy_anonymous"] = "IP addresses are anonymized",
+        ["about_privacy_retention"] = "Data is deleted after 90 days",
+        ["about_privacy_no_sharing"] = "No data sharing with third parties",
+        ["about_privacy_rights"] = "For privacy questions or to exercise your rights (access, deletion), contact us via GitHub.",
         
         // Quiz
         ["quiz_loading"] = "Loading questions...",

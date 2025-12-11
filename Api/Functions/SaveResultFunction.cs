@@ -59,9 +59,9 @@ public class SaveResultFunction
 
             _logger.LogInformation("Saved result {ResultId}", resultId);
 
-            // Build share URL (use environment variable for base URL in production)
+            // Build share URL using preview endpoint (handles both bots and humans)
             var baseUrl = Environment.GetEnvironmentVariable("BASE_URL") ?? "http://localhost:5042";
-            var shareUrl = $"{baseUrl}/result/{resultId}";
+            var shareUrl = $"{baseUrl}/api/share/{resultId}";
 
             // Return response
             var response = req.CreateResponse(HttpStatusCode.OK);
