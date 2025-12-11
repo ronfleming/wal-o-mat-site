@@ -102,8 +102,8 @@ public class SharePreviewFunction
         var resultId = entity.RowKey;
         
         // Parse top result
-        var results = JsonSerializer.Deserialize<List<WhaleResult>>(entity.ResultsJson);
-        var topResult = results?.OrderByDescending(r => r.Percentage).FirstOrDefault();
+        var results = JsonSerializer.Deserialize<List<MatchResult>>(entity.ResultsJson);
+        var topResult = results?.OrderByDescending(r => r.MatchPercentage).FirstOrDefault();
         
         if (topResult == null)
         {
@@ -115,7 +115,7 @@ public class SharePreviewFunction
         var imageUrl = $"{baseUrl}/{whaleData.ImagePath}";
         var pageUrl = $"{baseUrl}/result/{resultId}";
         var title = $"Mein Wal-O-Mat Ergebnis: {whaleData.NameDe}";
-        var description = $"Ich bin {topResult.Percentage:F0}% {whaleData.NameDe}! Finde heraus, welcher Wal du bist.";
+        var description = $"Ich bin {topResult.MatchPercentage:F0}% {whaleData.NameDe}! Finde heraus, welcher Wal du bist.";
 
         return $@"<!DOCTYPE html>
 <html lang=""de"">
