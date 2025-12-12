@@ -13,14 +13,10 @@ namespace WalOMat.Api.Functions;
 public class SharePreviewFunction
 {
     private readonly ILogger<SharePreviewFunction> _logger;
-    private readonly TableServiceClient _tableServiceClient;
 
-    public SharePreviewFunction(
-        ILogger<SharePreviewFunction> logger,
-        TableServiceClient tableServiceClient)
+    public SharePreviewFunction(ILogger<SharePreviewFunction> logger)
     {
         _logger = logger;
-        _tableServiceClient = tableServiceClient;
     }
 
     [Function("SharePreview")]
@@ -50,7 +46,9 @@ public class SharePreviewFunction
         // Bot detected - fetch result and return static HTML with Open Graph tags
         try
         {
-            var tableClient = _tableServiceClient.GetTableClient("QuizResults");
+            var connectionString = Environment.GetEnvironmentVariable("TableStorageConnectionString")
+                ?? throw new InvalidOperationException("TableStorageConnectionString not configured");
+            var tableClient = new TableClient(connectionString, "QuizResults");
             var entity = await tableClient.GetEntityAsync<QuizResultEntity>("results", id);
             
             if (entity?.Value == null || entity.Value.ExpiresAt < DateTime.UtcNow)
