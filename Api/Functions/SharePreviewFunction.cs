@@ -205,19 +205,19 @@ public class SharePreviewFunction
 
     private (string NameDe, string NameEn, string ImagePath) GetWhaleData(string whaleId)
     {
-        // Map whale IDs to their data
+        // Map whale IDs to their data (must match IDs in whales.json)
         return whaleId switch
         {
-            "blauwal" => ("Blauwal", "Blue Whale", "images/whales/blauwal.webp"),
-            "buckelwal" => ("Buckelwal", "Humpback Whale", "images/whales/buckelwal.webp"),
-            "grauwal" => ("Grauwal", "Gray Whale", "images/whales/grauwal.webp"),
-            "narwal" => ("Narwal", "Narwhal", "images/whales/narwal.webp"),
             "orca" => ("Orca", "Orca", "images/whales/orca1.webp"),
-            "pottwal" => ("Pottwal", "Sperm Whale", "images/whales/pottwal.webp"),
-            "schwertwal" => ("Schwertwal", "Killer Whale", "images/whales/orca1.webp"),
-            "suedkaper" => ("Südkaper", "Southern Right Whale", "images/whales/suedkaper.webp"),
-            "weisswal" => ("Weißwal", "Beluga Whale", "images/whales/weisswal.webp"),
-            "zwergwal" => ("Zwergwal", "Minke Whale", "images/whales/zwergwal.webp"),
+            "blue" => ("Blauwal", "Blue Whale", "images/whales/blue1.webp"),
+            "humpback" => ("Buckelwal", "Humpback Whale", "images/whales/humpback1.webp"),
+            "beluga" => ("Beluga", "Beluga Whale", "images/whales/beluga1.webp"),
+            "sperm" => ("Pottwal", "Sperm Whale", "images/whales/sperm1.webp"),
+            "narwhal" => ("Narwal", "Narwhal", "images/whales/narwhal1.webp"),
+            "gray" => ("Grauwal", "Gray Whale", "images/whales/gray1.webp"),
+            "pilot" => ("Grindwal", "Pilot Whale", "images/whales/pilot1.webp"),
+            "minke" => ("Zwergwal", "Minke Whale", "images/whales/minke1.webp"),
+            "bowhead" => ("Grönlandwal", "Bowhead Whale", "images/whales/bowhead1.webp"),
             _ => ("Wal", "Whale", "images/whales/orca1.webp")
         };
     }
