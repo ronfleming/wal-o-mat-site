@@ -1,0 +1,26 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Wal-O-Mat",
+  "url": "https://wal-o-mat.net",
+  "description": "Finde mit diesem lustigen Persönlichkeitsquiz heraus, welche Walart am besten zu dir passt. Inspiriert vom deutschen Wahl-O-Mat.",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "inLanguage": ["de", "en"],
+  "creator": {
+    "@type": "Person",
+    "name": "Ron Fleming",
+    "url": "https://github.com/ronfleming"
+  },
+  "keywords": "Persönlichkeitstest, Wale, Quiz, Personality Test, Whales",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "General Public"
+  }
+}
+

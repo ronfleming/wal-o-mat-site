@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_framework/
+
+# Sitemap
+Sitemap: https://wal-o-mat.net/sitemap.xml
+
+# Prevent indexing of individual result pages (they expire after 90 days)
+Disallow: /result/
+
