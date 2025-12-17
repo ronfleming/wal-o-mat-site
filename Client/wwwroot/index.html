@@ -20,7 +20,7 @@
         />
         <meta name="author" content="Wal-O-Mat" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.wal-o-mat.net/" />
+        <!-- Canonical is set dynamically by each Blazor page via HeadContent -->
 
         <!-- Open Graph / Social Sharing -->
         <meta property="og:type" content="website" />
@@ -146,6 +146,54 @@
             <a href="" class="reload">Neu laden / Reload</a>
             <a class="dismiss">🗙</a>
         </div>
+
+        <!-- SEO fallback for crawlers that don't execute JavaScript -->
+        <noscript>
+            <div
+                style="
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 2rem;
+                    font-family: sans-serif;
+                "
+            >
+                <h1>Wal-O-Mat – Welcher Wal bist du?</h1>
+                <p>
+                    Wal-O-Mat ist ein Persönlichkeitsquiz, das dir zeigt, welche
+                    Walart am besten zu dir passt. Inspiriert vom deutschen
+                    Wahl-O-Mat der Bundeszentrale für politische Bildung.
+                </p>
+                <h2>So funktioniert's</h2>
+                <p>
+                    Beantworte 14 Fragen über dich selbst und finde heraus, ob
+                    du eher ein geselliger Orca, ein nachdenklicher Blauwal, ein
+                    kreativer Buckelwal oder eine von sieben anderen Walarten
+                    bist.
+                </p>
+                <h2>Verfügbare Walarten</h2>
+                <ul>
+                    <li>Orca – Sozial, strategisch, familienorientiert</li>
+                    <li>Blauwal – Ruhig, unabhängig, ausdauernd</li>
+                    <li>Buckelwal – Kreativ, ausdrucksstark, verspielt</li>
+                    <li>Beluga – Gesellig, neugierig, freundlich</li>
+                    <li>Pottwal – Nachdenklich, geduldig, tiefgründig</li>
+                    <li>Narwal – Einzigartig, geheimnisvoll, anmutig</li>
+                    <li>
+                        Grauwal – Ausdauernd, traditionsbewusst, bodenständig
+                    </li>
+                    <li>
+                        Grindwal – Loyal, gemeinschaftsorientiert, beständig
+                    </li>
+                    <li>Zwergwal – Wendig, unabhängig, neugierig</li>
+                    <li>Grönlandwal – Weise, besonnen, widerstandsfähig</li>
+                </ul>
+                <p>
+                    <a href="/">Quiz starten</a> |
+                    <a href="/about-us">Über uns</a>
+                </p>
+            </div>
+        </noscript>
+
         <script src="_framework/blazor.webassembly.js"></script>
     </body>
 </html>
