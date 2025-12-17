@@ -49,9 +49,7 @@ public class LocalizationService
         // Splash page
         ["splash_title"] = "Wal-O-Mat",
         ["splash_tagline"] = "Welcher Wal bist du?",
-        ["splash_disclaimer_1"] = "Dies ist <em>nicht</em> der offizielle <a href=\"https://www.wahl-o-mat.de\" target=\"_blank\" rel=\"noopener\">Wahl-O-Mat</a> der Bundeszentrale für politische Bildung.",
-        ["splash_disclaimer_2"] = "Auf der Suche nach dem echten Wahl-O-Mat?",
-        ["splash_disclaimer_link"] = "Hier entlang →",
+        ["splash_about"] = "Wal-O-Mat ist eine humorvolle Hommage an den <a href=\"https://www.wahl-o-mat.de\" target=\"_blank\" rel=\"noopener\">Wahl-O-Mat</a> der Bundeszentrale für politische Bildung. Wir nutzen das gleiche Bewertungsprinzip – aber mit Walen! <em>Dies ist nicht der offizielle Wahl-O-Mat und steht in keiner Verbindung zur bpb.</em>",
         ["splash_intro"] = "Beantworte ein paar Fragen über dich selbst und finde heraus, welcher Wal am besten zu deiner Persönlichkeit passt!",
         ["splash_start"] = "Quiz starten",
         
@@ -136,14 +134,12 @@ public class LocalizationService
         // Splash page
         ["splash_title"] = "Wal-O-Mat",
         ["splash_tagline"] = "Which whale are you?",
-        ["splash_disclaimer_1"] = "This is <em>not</em> the official <a href=\"https://www.wahl-o-mat.de\" target=\"_blank\" rel=\"noopener\">Wahl-O-Mat</a> by Germany's Federal Agency for Civic Education.",
-        ["splash_disclaimer_2"] = "Looking for the real Wahl-O-Mat?",
-        ["splash_disclaimer_link"] = "Click here →",
+        ["splash_about"] = "Wal-O-Mat is a playful homage to the <a href=\"https://www.wahl-o-mat.de\" target=\"_blank\" rel=\"noopener\">Wahl-O-Mat</a> by Germany's Federal Agency for Civic Education. We use the same scoring system – but with whales! <em>This is not the official Wahl-O-Mat and is not affiliated with the bpb.</em>",
         ["splash_intro"] = "Answer a few questions about yourself and discover which whale species best matches your personality!",
         ["splash_start"] = "Start Quiz",
         
         // About page
-        ["about_title"] = "About Wal-O-Mat",
+        ["about_title"] = "About Us – Wal-O-Mat",
         ["about_what_title"] = "What is this?",
         ["about_what_1"] = "Wal-O-Mat is a personality quiz inspired by Germany's <a href=\"https://www.wahl-o-mat.de\" target=\"_blank\" rel=\"noopener\">Wahl-O-Mat</a>—a tool by the Federal Agency for Civic Education that helps voters compare their positions with political parties.",
         ["about_what_2"] = "Here, we compare your personality with different whale species instead. Because who hasn't wondered whether they're more of a social orca or a thoughtful blue whale?",

@@ -1,16 +1,16 @@
 [
   {
     "id": "q1",
-    "textDe": "Ich verbringe meine Freizeit am liebsten mit Familie und engen Freunden.",
-    "textEn": "I prefer spending my free time with family and close friends.",
+    "textDe": "Ich fühle mich nach großen sozialen Veranstaltungen energiegeladen.",
+    "textEn": "I feel energized after spending time in large social gatherings.",
     "category": "social",
     "whalePositions": {
       "orca": 1,
       "blue": -1,
-      "humpback": 0,
+      "humpback": 1,
       "beluga": 1,
-      "sperm": 0,
-      "narwhal": -1,
+      "sperm": -1,
+      "narwhal": 0,
       "gray": 0,
       "pilot": 1,
       "minke": -1,
@@ -163,15 +163,15 @@
   },
   {
     "id": "q10",
-    "textDe": "Traditionen und bewährte Methoden sind mir wichtig.",
-    "textEn": "Traditions and proven methods are important to me.",
+    "textDe": "Ich bevorzuge einen festen Tagesablauf gegenüber spontanem Handeln.",
+    "textEn": "I prefer following a routine rather than going with the flow.",
     "category": "values",
     "whalePositions": {
       "orca": 0,
-      "blue": 0,
+      "blue": 1,
       "humpback": -1,
-      "beluga": 0,
-      "sperm": 1,
+      "beluga": -1,
+      "sperm": 0,
       "narwhal": 0,
       "gray": 1,
       "pilot": 1,
@@ -181,19 +181,19 @@
   },
   {
     "id": "q11",
-    "textDe": "Ich bin bekannt dafür, auch unter Druck ruhig zu bleiben.",
-    "textEn": "I'm known for staying calm under pressure.",
+    "textDe": "In stressigen Situationen ziehe ich mich zurück und verarbeite Dinge innerlich.",
+    "textEn": "In stressful situations, I tend to withdraw and process things internally.",
     "category": "personality",
     "whalePositions": {
-      "orca": 1,
+      "orca": -1,
       "blue": 1,
-      "humpback": 0,
-      "beluga": 0,
+      "humpback": -1,
+      "beluga": -1,
       "sperm": 1,
-      "narwhal": 0,
+      "narwhal": 1,
       "gray": 0,
-      "pilot": 0,
-      "minke": -1,
+      "pilot": -1,
+      "minke": 0,
       "bowhead": 1
     }
   },
@@ -212,6 +212,42 @@
       "gray": -1,
       "pilot": -1,
       "minke": 1,
+      "bowhead": -1
+    }
+  },
+  {
+    "id": "q13",
+    "textDe": "Ich fühle mich wohler als Beobachter am Rand als im Mittelpunkt des Geschehens.",
+    "textEn": "I feel more comfortable as an observer on the sidelines than in the spotlight.",
+    "category": "social",
+    "whalePositions": {
+      "orca": -1,
+      "blue": 1,
+      "humpback": -1,
+      "beluga": -1,
+      "sperm": 0,
+      "narwhal": 1,
+      "gray": 0,
+      "pilot": 0,
+      "minke": 1,
+      "bowhead": 1
+    }
+  },
+  {
+    "id": "q14",
+    "textDe": "Ich drücke meine Gefühle offen und ausdrucksstark aus.",
+    "textEn": "I express my emotions openly and expressively.",
+    "category": "communication",
+    "whalePositions": {
+      "orca": 0,
+      "blue": -1,
+      "humpback": 1,
+      "beluga": 1,
+      "sperm": -1,
+      "narwhal": -1,
+      "gray": 0,
+      "pilot": 0,
+      "minke": 0,
       "bowhead": -1
     }
   }

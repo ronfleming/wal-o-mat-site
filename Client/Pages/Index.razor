@@ -6,7 +6,7 @@
 <PageTitle>@L.Get("meta_title")</PageTitle>
 <HeadContent>
     <meta name="description" content="@L.Get("meta_description")" />
-    <meta name="keywords" content="@(L.IsGerman ? "Wal Quiz, Persönlichkeitstest, Walarten, Orca, Blauwal, Buckelwal, lustiges Quiz" : "whale quiz, personality test, whale species, orca, blue whale, humpback, fun quiz")" />
+    <meta name="keywords" content="@(L.IsGerman ? "Wal-O-Mat, Wahl-O-Mat Parodie, Wal Quiz, Persönlichkeitstest, Welcher Wal bin ich, Walarten, Orca, Blauwal" : "Wal-O-Mat, Wahl-O-Mat parody, whale quiz, personality test, which whale am I, whale species, orca, blue whale")" />
     <meta property="og:title" content="@L.Get("meta_title")" />
     <meta property="og:description" content="@L.Get("meta_description")" />
     <meta property="og:type" content="website" />
@@ -23,14 +23,8 @@
     </header>
 
     <main class="splash-content">
-        <div class="disclaimer-box">
-            <p>
-                <strong>@(L.IsGerman ? "Hinweis:" : "Note:")</strong> @((MarkupString)L.Get("splash_disclaimer_1"))
-            </p>
-            <p>
-                @L.Get("splash_disclaimer_2") 
-                <a href="https://www.wahl-o-mat.de" target="_blank" rel="noopener">@L.Get("splash_disclaimer_link")</a>
-            </p>
+        <div class="about-box">
+            <p>@((MarkupString)L.Get("splash_about"))</p>
         </div>
 
         <div class="intro-text">
@@ -43,7 +37,7 @@
     </main>
 
     <footer class="splash-footer">
-        <a href="/about">@L.Get("about_link")</a>
+        <a href="/about-us">@L.Get("about_link")</a>
     </footer>
 </div>
 
