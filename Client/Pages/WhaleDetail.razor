@@ -1,0 +1,83 @@
+@page "/whale/{whaleId}"
+@inject QuizDataService DataService
+@inject LocalizationService L
+@inject NavigationManager Navigation
+@implements IDisposable
+
+@if (_whale != null)
+{
+    <PageTitle>@_whale.GetName(L.CurrentLanguage) – Wal-O-Mat</PageTitle>
+    <HeadContent>
+        <meta name="description" content="@_whale.GetDescription(L.CurrentLanguage)" />
+        <meta property="og:title" content="@_whale.GetName(L.CurrentLanguage) – Wal-O-Mat" />
+        <meta property="og:description" content="@_whale.GetDescription(L.CurrentLanguage)" />
+        <meta property="og:image" content="https://wal-o-mat.net@(_whale.ImagePath)" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://wal-o-mat.net/whale/@WhaleId" />
+        <link rel="canonical" href="https://wal-o-mat.net/whale/@WhaleId" />
+    </HeadContent>
+}
+
+<div class="whale-detail-container">
+    @if (_isLoading)
+    {
+        <div class="loading">@L.Get("quiz_loading")</div>
+    }
+    else if (_whale != null)
+    {
+        <div class="whale-detail-card">
+            <div class="whale-detail-image">
+                <img src="@_whale.ImagePath" alt="@_whale.GetName(L.CurrentLanguage)" />
+            </div>
+            
+            <div class="whale-detail-content">
+                <h1>@_whale.GetName(L.CurrentLanguage)</h1>
+                <p class="whale-scientific-name">@_whale.ScientificName</p>
+                
+                <div class="whale-traits-list">
+                    @foreach (var trait in _whale.GetTraits(L.CurrentLanguage))
+                    {
+                        <span class="trait-badge">@trait</span>
+                    }
+                </div>
+                
+                <p class="whale-description">@_whale.GetDescription(L.CurrentLanguage)</p>
+            </div>
+        </div>
+        
+        <footer class="whale-detail-footer">
+            <a href="/gallery" class="back-link">@L.Get("back_to_gallery")</a>
+            <span class="separator">|</span>
+            <a href="/quiz" class="quiz-link">@L.Get("gallery_take_quiz")</a>
+        </footer>
+    }
+    else
+    {
+        <div class="not-found">
+            <h2>@L.Get("whale_not_found")</h2>
+            <a href="/gallery">@L.Get("back_to_gallery")</a>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string WhaleId { get; set; } = string.Empty;
+    
+    private bool _isLoading = true;
+    private QuizData? _quizData;
+    private WhaleProfile? _whale;
+
+    protected override async Task OnInitializedAsync()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+        _quizData = await DataService.LoadQuizDataAsync();
+        _whale = _quizData?.Whales.FirstOrDefault(w => w.Id == WhaleId);
+        _isLoading = false;
+    }
+
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}
+

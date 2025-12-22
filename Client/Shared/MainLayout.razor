@@ -1,8 +1,19 @@
 ﻿@inherits LayoutComponentBase
 @inject LocalizationService L
+@inject NavigationManager Navigation
 @implements IDisposable
 
 <div class="app-container">
+    @if (!IsHomePage())
+    {
+        <div class="global-home-button">
+            <button class="home-btn" @onclick="GoHome" title="@L.Get("back_home")">
+                <span class="home-icon">🐋</span>
+                <span class="home-text">Home</span>
+            </button>
+        </div>
+    }
+    
     <div class="global-language-toggle">
         <LanguageToggle />
     </div>
@@ -16,10 +27,28 @@
     protected override void OnInitialized()
     {
         L.OnLanguageChanged += StateHasChanged;
+        Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    private bool IsHomePage()
+    {
+        var uri = new Uri(Navigation.Uri);
+        return uri.AbsolutePath == "/" || uri.AbsolutePath == "";
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    private void GoHome()
+    {
+        Navigation.NavigateTo("/");
     }
 
     public void Dispose()
     {
         L.OnLanguageChanged -= StateHasChanged;
+        Navigation.LocationChanged -= OnLocationChanged;
     }
 }

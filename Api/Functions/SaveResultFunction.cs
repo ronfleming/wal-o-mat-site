@@ -61,7 +61,12 @@ public class SaveResultFunction
 
             // Build share URL using preview endpoint (handles both bots and humans)
             var baseUrl = Environment.GetEnvironmentVariable("BASE_URL") ?? "http://localhost:5042";
-            var shareUrl = $"{baseUrl}/api/share/{resultId}";
+            // For local dev, API is on different port, so point directly to result page
+            // In production, SWA routes /api/* to functions automatically
+            var isLocal = baseUrl.Contains("localhost");
+            var shareUrl = isLocal 
+                ? $"{baseUrl}/result/{resultId}"  // Local: skip bot detection, go direct
+                : $"{baseUrl}/api/share/{resultId}";  // Prod: use preview function
 
             // Return response
             var response = req.CreateResponse(HttpStatusCode.OK);
