@@ -1,0 +1,67 @@
+@page "/gallery"
+@inject QuizDataService DataService
+@inject LocalizationService L
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<PageTitle>@L.Get("gallery_title") – Wal-O-Mat</PageTitle>
+<HeadContent>
+    <meta name="description" content="@L.Get("gallery_description")" />
+    <meta property="og:title" content="@L.Get("gallery_title") – Wal-O-Mat" />
+    <meta property="og:description" content="@L.Get("gallery_description")" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wal-o-mat.net/gallery" />
+    <link rel="canonical" href="https://wal-o-mat.net/gallery" />
+</HeadContent>
+
+<div class="gallery-container">
+    <header class="gallery-header">
+        <h1>@L.Get("gallery_title")</h1>
+        <p class="gallery-intro">@L.Get("gallery_intro")</p>
+    </header>
+
+    @if (_isLoading)
+    {
+        <div class="loading">@L.Get("quiz_loading")</div>
+    }
+    else if (_quizData != null)
+    {
+        <div class="whale-gallery">
+            @foreach (var whale in _quizData.Whales)
+            {
+                <a href="/whale/@whale.Id" class="whale-gallery-card">
+                    <img src="@whale.ImagePath" alt="@whale.GetName(L.CurrentLanguage)" />
+                    <div class="whale-card-info">
+                        <h3>@whale.GetName(L.CurrentLanguage)</h3>
+                        <p class="whale-scientific">@whale.ScientificName</p>
+                        <div class="whale-traits">
+                            @string.Join(" · ", whale.GetTraits(L.CurrentLanguage).Take(3))
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+
+    <footer class="gallery-footer">
+        <a href="/">@L.Get("back_home")</a>
+    </footer>
+</div>
+
+@code {
+    private bool _isLoading = true;
+    private QuizData? _quizData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        L.OnLanguageChanged += StateHasChanged;
+        _quizData = await DataService.LoadQuizDataAsync();
+        _isLoading = false;
+    }
+
+    public void Dispose()
+    {
+        L.OnLanguageChanged -= StateHasChanged;
+    }
+}
+

@@ -11,30 +11,49 @@
         <p>@L.Get("results_intro")</p>
     </header>
 
-    <div class="results-list">
-        @if (State.Results is not null && State.QuizData is not null)
-        {
-            var rank = 1;
-            @foreach (var result in State.Results)
+    @if (IsAllNeutral())
+    {
+        <!-- Dugong Easter Egg -->
+        <div class="dugong-reveal">
+            <div class="dugong-card">
+                <span class="dugong-emoji">🦭</span>
+                <h3>@L.Get("dugong_title")</h3>
+                <p class="dugong-description">@L.Get("dugong_description")</p>
+                <div class="dugong-traits">@L.Get("dugong_traits")</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="results-list">
+            @if (State.Results is not null && State.QuizData is not null)
             {
-                var whale = State.QuizData.Whales.FirstOrDefault(w => w.Id == result.WhaleId);
-                var displayName = whale?.GetName(L.CurrentLanguage) ?? result.WhaleName;
-                
-                <div class="result-card @(rank == 1 ? "top-match" : "")">
-                    <span class="rank">#@rank</span>
-                    <img src="@result.ImagePath" alt="@displayName" />
-                    <div class="result-info">
-                        <span class="whale-name">@displayName</span>
-                        <div class="match-bar">
-                            <div class="match-fill" style="width: @result.MatchPercentage%"></div>
+                var rank = 1;
+                @foreach (var result in State.Results)
+                {
+                    var whale = State.QuizData.Whales.FirstOrDefault(w => w.Id == result.WhaleId);
+                    var displayName = whale?.GetName(L.CurrentLanguage) ?? result.WhaleName;
+                    
+                    <div class="result-card @(rank == 1 ? "top-match" : "")">
+                        <span class="rank">#@rank</span>
+                        <img src="@result.ImagePath" alt="@displayName" />
+                        <div class="result-info">
+                            <span class="whale-name">@displayName</span>
+                            <div class="match-bar">
+                                <div class="match-fill" style="width: @result.MatchPercentage%"></div>
+                            </div>
+                            <span class="match-percent">@result.MatchPercentage%</span>
+                            @if (rank == 1)
+                            {
+                                <span class="match-flavor">@GetMatchFlavorText(result.MatchPercentage)</span>
+                            }
                         </div>
-                        <span class="match-percent">@result.MatchPercentage%</span>
                     </div>
-                </div>
-                rank++;
+                    rank++;
+                }
             }
-        }
-    </div>
+        </div>
+    }
 
     @if (!string.IsNullOrEmpty(_shareUrl))
     {
@@ -73,6 +92,14 @@
     protected override void OnInitialized()
     {
         L.OnLanguageChanged += StateHasChanged;
+    }
+
+    private bool IsAllNeutral()
+    {
+        // Easter egg: if ALL answered questions are neutral (0), show Dugong
+        var answeredQuestions = State.Answers.Where(a => a.Position.HasValue).ToList();
+        if (!answeredQuestions.Any()) return false;
+        return answeredQuestions.All(a => a.Position == 0);
     }
 
     private async Task ShareResults()
@@ -142,6 +169,18 @@
     {
         State.Reset();
         Navigation.NavigateTo("/");
+    }
+
+    private string GetMatchFlavorText(double percentage)
+    {
+        return percentage switch
+        {
+            >= 90 => L.Get("results_match_90"),
+            >= 70 => L.Get("results_match_70"),
+            >= 50 => L.Get("results_match_50"),
+            >= 30 => L.Get("results_match_30"),
+            _ => L.Get("results_match_low")
+        };
     }
 
     public void Dispose()

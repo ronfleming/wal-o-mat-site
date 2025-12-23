@@ -10,13 +10,14 @@
 
 @if (_isLoading)
 {
-    <div class="loading">@L.Get("quiz_loading")</div>
+    <div class="loading">@GetRandomLoadingMessage()</div>
 }
 else if (State.Phase == QuizPhase.Answering && State.CurrentQuestion is not null)
 {
     <div class="quiz-container">
         <header class="quiz-header">
             <span class="progress">@L.Get("quiz_question") @(State.CurrentQuestionIndex + 1) @L.Get("quiz_of") @State.TotalQuestions</span>
+            <span class="progress-subtext">@GetQuestionSubtext()</span>
             <div class="progress-bar">
                 <div class="progress-fill" style="width: @(((State.CurrentQuestionIndex + 1) / (double)State.TotalQuestions) * 100)%"></div>
             </div>
@@ -26,13 +27,13 @@ else if (State.Phase == QuizPhase.Answering && State.CurrentQuestion is not null
             <p class="question-text">@GetQuestionText()</p>
 
             <div class="answer-buttons">
-                <button class="answer-btn agree @(GetAnswerClass(1))" @onclick="() => Answer(1)">
+                <button class="answer-btn agree @(GetAnswerClass(1))" @onclick="() => Answer(1)" title="@L.Get("quiz_agree_tooltip")">
                     @L.Get("quiz_agree")
                 </button>
-                <button class="answer-btn neutral @(GetAnswerClass(0))" @onclick="() => Answer(0)">
+                <button class="answer-btn neutral @(GetAnswerClass(0))" @onclick="() => Answer(0)" title="@L.Get("quiz_neutral_tooltip")">
                     @L.Get("quiz_neutral")
                 </button>
-                <button class="answer-btn disagree @(GetAnswerClass(-1))" @onclick="() => Answer(-1)">
+                <button class="answer-btn disagree @(GetAnswerClass(-1))" @onclick="() => Answer(-1)" title="@L.Get("quiz_disagree_tooltip")">
                     @L.Get("quiz_disagree")
                 </button>
             </div>
@@ -77,14 +78,31 @@ else if (State.Phase == QuizPhase.Results && State.Results is not null)
 @code {
     private bool _isLoading = true;
     private bool _hasAnswered => State.GetAnswerForQuestion(State.CurrentQuestion?.Id ?? "") is not null;
+    private static readonly Random _random = new();
+    private int _loadingMessageIndex;
+    private int _subtextIndex;
 
     protected override async Task OnInitializedAsync()
     {
         L.OnLanguageChanged += StateHasChanged;
+        _loadingMessageIndex = _random.Next(1, 5); // 1-4 (4 loading messages)
+        _subtextIndex = _random.Next(0, 16); // Random offset for 16 subtexts
         var data = await DataService.LoadQuizDataAsync();
         State.Initialize(data);
         State.StartQuiz();
         _isLoading = false;
+    }
+
+    private string GetRandomLoadingMessage()
+    {
+        return L.Get($"quiz_loading_{_loadingMessageIndex}");
+    }
+
+    private string GetQuestionSubtext()
+    {
+        // Use question index + random offset for variety (16 total subtexts)
+        var index = ((State.CurrentQuestionIndex + _subtextIndex) % 16) + 1;
+        return L.Get($"quiz_subtext_{index}");
     }
 
     private string GetQuestionText()
