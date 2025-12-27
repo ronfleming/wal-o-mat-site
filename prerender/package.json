@@ -1,0 +1,13 @@
+{
+  "name": "wal-o-mat-prerender",
+  "version": "1.0.0",
+  "description": "Pre-rendering script for Wal-O-Mat SEO",
+  "type": "module",
+  "scripts": {
+    "prerender": "node prerender.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}
+
