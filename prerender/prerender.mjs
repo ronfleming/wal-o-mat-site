@@ -22,10 +22,8 @@ const config = {
   outputDir: process.env.OUTPUT_DIR || join(__dirname, '../Client/bin/Release/net9.0/publish/wwwroot'),
   // Local server URL (started externally)
   baseUrl: process.env.BASE_URL || 'http://localhost:5050',
-  // Timeout for page load
-  timeout: 30000,
-  // Wait for this selector to confirm Blazor has rendered
-  waitForSelector: 'h1, .splash-container, .quiz-container, .gallery-container, .whale-detail-container, .about-container',
+  // Timeout for page load (increased for slower pages like /quiz)
+  timeout: 60000,
 };
 
 // Routes to pre-render (from sitemap.xml)
@@ -47,17 +45,40 @@ const routes = [
   { path: '/whale/bowhead', name: 'Bowhead Whale' },
 ];
 
-async function waitForBlazorReady(page) {
+async function waitForBlazorReady(page, route) {
   // Wait for Blazor to finish loading and rendering
   await page.waitForFunction(() => {
-    // Check if loading indicator is gone
+    // Check if Blazor's loading indicator is still visible
+    const blazorLoading = document.querySelector('#app')?.textContent?.includes('Loading');
+    if (blazorLoading) {
+      return false;
+    }
+    
+    // Check if page-specific loading is still visible (but allow quiz-container to override)
     const loading = document.querySelector('.loading');
+    const quizContainer = document.querySelector('.quiz-container');
+    
+    // If quiz container is visible, we're ready (even if loading was just shown)
+    if (quizContainer) {
+      return true;
+    }
+    
+    // For other pages, wait for loading to disappear
     if (loading && loading.offsetParent !== null) {
       return false;
     }
-    // Check if we have actual content
-    const hasContent = document.querySelector('h1, .splash-container, .gallery-container, .whale-detail-container, .about-container');
-    return hasContent !== null;
+    
+    // Check if we have actual content (any of these selectors)
+    const contentSelectors = [
+      'h1',
+      '.splash-container',
+      '.quiz-container', 
+      '.gallery-container',
+      '.whale-detail-container',
+      '.about-container'
+    ];
+    
+    return contentSelectors.some(sel => document.querySelector(sel) !== null);
   }, { timeout: config.timeout });
   
   // Extra wait for any animations/transitions
@@ -87,7 +108,7 @@ async function prerenderRoute(browser, route) {
     await page.goto(url, { waitUntil: 'networkidle', timeout: config.timeout });
     
     // Wait for Blazor to fully render
-    await waitForBlazorReady(page);
+    await waitForBlazorReady(page, route);
     
     // Get the fully rendered HTML
     let html = await page.content();
