@@ -15,6 +15,11 @@ jobs:
         runs-on: ubuntu-latest
         name: Build and Deploy Job
         steps:
+            - uses: actions/checkout@v3
+              with:
+                  submodules: true
+                  lfs: false
+
             - name: Setup .NET 9
               uses: actions/setup-dotnet@v3
               with:
@@ -25,23 +30,39 @@ jobs:
               with:
                   dotnet-version: '8.0.x'
 
-            - uses: actions/checkout@v3
+            - name: Setup Node.js (for pre-rendering)
+              uses: actions/setup-node@v4
               with:
-                  submodules: true
-                  lfs: false
+                  node-version: '20'
+
+            - name: Build Blazor Client
+              run: dotnet publish ./Client/WalOMat.Client.csproj -c Release -o ./Client/bin/Release/net9.0/publish
+
+            - name: Install pre-rendering dependencies
+              working-directory: ./prerender
+              run: |
+                  npm ci
+                  npx playwright install chromium --with-deps
+
+            - name: Run pre-rendering
+              working-directory: ./prerender
+              env:
+                  WWWROOT: ${{ github.workspace }}/Client/bin/Release/net9.0/publish/wwwroot
+              run: node serve-and-prerender.mjs
+
             - name: Build And Deploy
               id: builddeploy
               uses: Azure/static-web-apps-deploy@v1
               with:
                   azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_FLOWER_087107303 }}
-                  repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
                   action: 'upload'
-                  ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-                  # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-                  app_location: './Client' # App source code path
-                  api_location: 'Api' # Api source code path - optional
-                  output_location: 'wwwroot' # Built app content directory - optional
-                  ###### End of Repository/Build Configurations ######
+                  # Skip the build step since we already built and pre-rendered
+                  skip_app_build: true
+                  # Point to the pre-rendered output
+                  app_location: './Client/bin/Release/net9.0/publish/wwwroot'
+                  api_location: 'Api'
+                  output_location: ''
 
     close_pull_request_job:
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
