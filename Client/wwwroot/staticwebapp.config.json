@@ -1,15 +1,77 @@
 {
+  "routes": [
+    {
+      "route": "/quiz",
+      "rewrite": "/quiz/index.html"
+    },
+    {
+      "route": "/gallery",
+      "rewrite": "/gallery/index.html"
+    },
+    {
+      "route": "/about-us",
+      "rewrite": "/about-us/index.html"
+    },
+    {
+      "route": "/whale/orca",
+      "rewrite": "/whale/orca/index.html"
+    },
+    {
+      "route": "/whale/blue",
+      "rewrite": "/whale/blue/index.html"
+    },
+    {
+      "route": "/whale/humpback",
+      "rewrite": "/whale/humpback/index.html"
+    },
+    {
+      "route": "/whale/beluga",
+      "rewrite": "/whale/beluga/index.html"
+    },
+    {
+      "route": "/whale/sperm",
+      "rewrite": "/whale/sperm/index.html"
+    },
+    {
+      "route": "/whale/narwhal",
+      "rewrite": "/whale/narwhal/index.html"
+    },
+    {
+      "route": "/whale/gray",
+      "rewrite": "/whale/gray/index.html"
+    },
+    {
+      "route": "/whale/pilot",
+      "rewrite": "/whale/pilot/index.html"
+    },
+    {
+      "route": "/whale/minke",
+      "rewrite": "/whale/minke/index.html"
+    },
+    {
+      "route": "/whale/bowhead",
+      "rewrite": "/whale/bowhead/index.html"
+    }
+  ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
       "/assets/*",
-      "/*.{png,jpg,jpeg,gif,svg,webp,css,js,ico,txt,json,woff,woff2,ttf,eot}"
+      "/*.{png,jpg,jpeg,gif,svg,webp,css,js,ico,txt,json,woff,woff2,ttf,eot,wasm,dll,blat,dat}",
+      "/_framework/*",
+      "/api/*"
     ]
   },
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html"
     }
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".wasm": "application/wasm",
+    ".dll": "application/octet-stream",
+    ".blat": "application/octet-stream",
+    ".dat": "application/octet-stream"
   }
 }
-
