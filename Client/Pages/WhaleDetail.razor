@@ -15,6 +15,29 @@
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://wal-o-mat.net/whale/@WhaleId" />
         <link rel="canonical" href="https://wal-o-mat.net/whale/@WhaleId" />
+        <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "Article",
+            "name": "@_whale.GetName(L.CurrentLanguage)",
+            "headline": "@_whale.GetName(L.CurrentLanguage) – Wal-O-Mat",
+            "description": "@System.Text.Json.JsonEncodedText.Encode(_whale.GetDescription(L.CurrentLanguage))",
+            "image": "https://wal-o-mat.net@(_whale.ImagePath)",
+            "url": "https://wal-o-mat.net/whale/@WhaleId",
+            "mainEntity": {
+                "@@type": "Thing",
+                "name": "@_whale.GetName(L.CurrentLanguage)",
+                "alternateName": "@_whale.ScientificName",
+                "image": "https://wal-o-mat.net@(_whale.ImagePath)",
+                "description": "@System.Text.Json.JsonEncodedText.Encode(_whale.GetDescription(L.CurrentLanguage))"
+            },
+            "isPartOf": {
+                "@@type": "WebApplication",
+                "name": "Wal-O-Mat",
+                "url": "https://wal-o-mat.net"
+            }
+        }
+        </script>
     </HeadContent>
 }
 
