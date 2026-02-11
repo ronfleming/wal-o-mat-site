@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 namespace WalOMat.Client.Services;
 
@@ -9,11 +10,13 @@ namespace WalOMat.Client.Services;
 public class ShareService
 {
     private readonly HttpClient _http;
+    private readonly ILogger<ShareService> _logger;
     private readonly string _apiBaseUrl;
 
-    public ShareService(HttpClient http)
+    public ShareService(HttpClient http, ILogger<ShareService> logger)
     {
         _http = http;
+        _logger = logger;
         // Use environment-specific API URL
         // Local: http://localhost:7071/api
         // Production: /api (SWA serves it automatically)
@@ -31,7 +34,7 @@ public class ShareService
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"Error saving result: {ex.Message}");
+            _logger.LogError(ex, "Error saving result");
             return null;
         }
     }
@@ -53,7 +56,7 @@ public class ShareService
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"Error retrieving result: {ex.Message}");
+            _logger.LogError(ex, "Error retrieving result {Id}", id);
             return null;
         }
     }

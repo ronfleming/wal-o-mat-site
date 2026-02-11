@@ -26,18 +26,44 @@ if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
 
 Write-Host "✅ All prerequisites found" -ForegroundColor Green
 
+# Kill any existing processes on our ports FIRST to release file locks and ports
+Write-Host "Cleaning up any existing processes..." -ForegroundColor Yellow
+& (Join-Path $PSScriptRoot "stop-local.ps1")
+Start-Sleep -Seconds 1
+
+# Build all projects upfront (sequentially) to avoid concurrent builds
+# fighting over the Shared project's obj/bin lock.
+Write-Host "Building solution..." -ForegroundColor Yellow
+
+# Build Api first (also builds Shared as a dependency)
+Write-Host "  Building Api..." -ForegroundColor Gray
+Push-Location (Join-Path $PSScriptRoot "Api")
+dotnet build --verbosity quiet
+if ($LASTEXITCODE -ne 0) {
+    Pop-Location
+    Write-Host "❌ Api build failed" -ForegroundColor Red
+    exit 1
+}
+Pop-Location
+
+# Build Client (Shared is already built, no contention)
+Write-Host "  Building Client..." -ForegroundColor Gray
+Push-Location (Join-Path $PSScriptRoot "Client")
+dotnet build --verbosity quiet
+if ($LASTEXITCODE -ne 0) {
+    Pop-Location
+    Write-Host "❌ Client build failed" -ForegroundColor Red
+    exit 1
+}
+Pop-Location
+
+Write-Host "✅ Build succeeded" -ForegroundColor Green
+
 # Create azurite data directory
 $azuriteDir = Join-Path $PSScriptRoot ".azurite"
 if (-not (Test-Path $azuriteDir)) {
     New-Item -ItemType Directory -Path $azuriteDir | Out-Null
 }
-
-# Kill any existing processes on our ports
-Write-Host "Cleaning up any existing processes..." -ForegroundColor Yellow
-Get-Process -Name "azurite" -ErrorAction SilentlyContinue | Stop-Process -Force
-Get-Process -Name "func" -ErrorAction SilentlyContinue | Stop-Process -Force
-Get-Process -Name "dotnet" -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "*wal-o-mat*" } | Stop-Process -Force
-Start-Sleep -Seconds 1
 
 # Start Azurite (Azure Storage Emulator)
 Write-Host "Starting Azurite..." -ForegroundColor Cyan
@@ -54,7 +80,7 @@ Start-Sleep -Seconds 2
 # Start Azure Functions
 Write-Host "Starting Azure Functions API..." -ForegroundColor Cyan
 $apiDir = Join-Path $PSScriptRoot "Api"
-$funcArgs = "Set-Location `"$apiDir`"; func start"
+$funcArgs = "Set-Location `"$apiDir`"; func start --no-build"
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = "powershell.exe"
 $psi.Arguments = "-NoProfile -WindowStyle Hidden -Command `"$funcArgs`""
@@ -75,7 +101,7 @@ Write-Host ""
 
 try {
     Set-Location $clientDir
-    dotnet run --urls "http://localhost:5042"
+    dotnet run --no-build --urls "http://localhost:5042"
 }
 finally {
     # Cleanup on exit

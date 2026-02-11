@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Azure.Data.Tables;
 using WalOMat.Api.Entities;
 using WalOMat.Api.Models;
+using WalOMat.Shared.Models;
 
 namespace WalOMat.Api.Functions;
 
@@ -25,7 +26,7 @@ public class SharePreviewFunction
         HttpRequestData req,
         string id)
     {
-        _logger.LogInformation($"Share preview request for ID: {id}");
+        _logger.LogInformation("Share preview request for ID: {Id}", id);
 
         // Check if this is a bot/crawler
         var userAgent = req.Headers.TryGetValues("User-Agent", out var values) 
@@ -64,7 +65,7 @@ public class SharePreviewFunction
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error fetching result {id}");
+            _logger.LogError(ex, "Error fetching result {Id}", id);
             return await CreateNotFoundResponse(req);
         }
     }
@@ -98,6 +99,7 @@ public class SharePreviewFunction
     {
         var baseUrl = Environment.GetEnvironmentVariable("BASE_URL") ?? "http://localhost:5042";
         var resultId = entity.RowKey;
+        var language = entity.Language ?? "de";
         
         // Parse top result
         var results = JsonSerializer.Deserialize<List<ResultDto>>(entity.ResultsJson);
@@ -108,15 +110,23 @@ public class SharePreviewFunction
             return GenerateFallbackHtml(baseUrl, resultId);
         }
 
-        // Map whale IDs to names and images
-        var whaleData = GetWhaleData(topResult.WhaleId);
-        var imageUrl = $"{baseUrl}/{whaleData.ImagePath}";
+        // Use shared whale metadata (single source of truth with whales.json)
+        var whaleInfo = WhaleMetadata.Get(topResult.WhaleId);
+        var whaleName = language == "en" ? whaleInfo.NameEn : whaleInfo.NameDe;
+        var imageUrl = $"{baseUrl}/{whaleInfo.ImagePath}";
         var pageUrl = $"{baseUrl}/result/{resultId}";
-        var title = $"Mein Wal-O-Mat Ergebnis: {whaleData.NameDe}";
-        var description = $"Ich bin {topResult.Percentage:F0}% {whaleData.NameDe}! Finde heraus, welcher Wal du bist.";
+        
+        // Generate localized OG text
+        var title = language == "en"
+            ? $"My Wal-O-Mat Result: {whaleName}"
+            : $"Mein Wal-O-Mat Ergebnis: {whaleName}";
+        var description = language == "en"
+            ? $"I'm {topResult.Percentage:F0}% {whaleName}! Find out which whale you are."
+            : $"Ich bin {topResult.Percentage:F0}% {whaleName}! Finde heraus, welcher Wal du bist.";
+        var locale = language == "en" ? "en_US" : "de_DE";
 
         return $@"<!DOCTYPE html>
-<html lang=""de"">
+<html lang=""{language}"">
 <head>
     <meta charset=""UTF-8"">
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
@@ -130,6 +140,7 @@ public class SharePreviewFunction
     <meta property=""og:image"" content=""{imageUrl}"">
     <meta property=""og:image:width"" content=""1200"">
     <meta property=""og:image:height"" content=""630"">
+    <meta property=""og:locale"" content=""{locale}"">
     
     <!-- Twitter -->
     <meta name=""twitter:card"" content=""summary_large_image"">
@@ -203,23 +214,5 @@ public class SharePreviewFunction
         return response;
     }
 
-    private (string NameDe, string NameEn, string ImagePath) GetWhaleData(string whaleId)
-    {
-        // Map whale IDs to their data (must match IDs in whales.json)
-        return whaleId switch
-        {
-            "orca" => ("Orca", "Orca", "images/whales/orca1.webp"),
-            "blue" => ("Blauwal", "Blue Whale", "images/whales/blue1.webp"),
-            "humpback" => ("Buckelwal", "Humpback Whale", "images/whales/humpback1.webp"),
-            "beluga" => ("Beluga", "Beluga Whale", "images/whales/beluga1.webp"),
-            "sperm" => ("Pottwal", "Sperm Whale", "images/whales/sperm1.webp"),
-            "narwhal" => ("Narwal", "Narwhal", "images/whales/narwhal1.webp"),
-            "gray" => ("Grauwal", "Gray Whale", "images/whales/gray1.webp"),
-            "pilot" => ("Grindwal", "Pilot Whale", "images/whales/pilot1.webp"),
-            "minke" => ("Zwergwal", "Minke Whale", "images/whales/minke1.webp"),
-            "bowhead" => ("Grönlandwal", "Bowhead Whale", "images/whales/bowhead1.webp"),
-            _ => ("Wal", "Whale", "images/whales/orca1.webp")
-        };
-    }
 }
 

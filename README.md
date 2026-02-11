@@ -80,15 +80,60 @@ Gewichtete Fragen zählen doppelt. Übersprungene Fragen werden nicht gewertet.
 
 ## Development
 
-```bash
-# Clone the repository
-git clone https://github.com/ronfleming/wal-o-mat-site.git
-cd wal-o-mat-site
+### Prerequisites
 
-# Run with hot reload
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js](https://nodejs.org/) (for Azurite and Azure Functions Core Tools)
+- Azurite: `npm install -g azurite`
+- Azure Functions Core Tools: `npm install -g azure-functions-core-tools@4`
+
+### Option 1: Start script (all-in-one)
+
+```powershell
+.\start-local.ps1
+# Starts Azurite, Functions API, and Blazor client
+# Press Ctrl+C to stop everything
+```
+
+To kill any leftover processes (orphaned Azurite, stuck ports, etc.):
+
+```powershell
+.\stop-local.ps1
+```
+
+### Option 2: Manual startup (three terminals)
+
+This is useful when you need to restart individual services.
+
+**Terminal 1 — Azurite (Storage Emulator):**
+```powershell
+azurite --silent --location .azurite --debug .azurite\debug.log
+# Runs on ports 10000 (blob), 10001 (queue), 10002 (table)
+```
+
+**Terminal 2 — Azure Functions API:**
+```powershell
+cd Api
+func start
+# API available at http://localhost:7071/api
+```
+
+**Terminal 3 — Blazor Client:**
+```powershell
+cd Client
+dotnet watch run --urls "http://localhost:5042"
+# App available at http://localhost:5042
+```
+
+> **Start order matters:** Azurite must be running before the Functions API starts, since it uses Azurite for Table Storage. The client can start any time, but sharing features require the API.
+
+### Client-only development
+
+If you're only working on the UI and don't need sharing/API features:
+
+```powershell
 cd Client
 dotnet watch run
-
 # Open http://localhost:5042
 ```
 
