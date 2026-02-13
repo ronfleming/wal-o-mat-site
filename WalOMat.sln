@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.0.0
@@ -5,6 +6,12 @@ MinimumVisualStudioVersion = 16.0.0.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WalOMat.Client", "Client\WalOMat.Client.csproj", "{F40028AA-817C-4552-9F59-905480167CB2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WalOMat.Shared", "Shared\WalOMat.Shared.csproj", "{AFD75307-BCFE-4D15-8CED-A83E29649E42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{D82C56D6-B2CD-F611-9E31-04638F7EC30E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalOMat.Api", "Api\WalOMat.Api.csproj", "{58CBF49F-DF55-421F-8FF4-26E077FE497F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{4F52FD11-658E-A102-6CD3-7D7C16FFA15B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,9 +47,24 @@ Global
 		{AFD75307-BCFE-4D15-8CED-A83E29649E42}.Release|x64.Build.0 = Release|Any CPU
 		{AFD75307-BCFE-4D15-8CED-A83E29649E42}.Release|x86.ActiveCfg = Release|Any CPU
 		{AFD75307-BCFE-4D15-8CED-A83E29649E42}.Release|x86.Build.0 = Release|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Debug|x64.Build.0 = Debug|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Debug|x86.Build.0 = Debug|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Release|x64.ActiveCfg = Release|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Release|x64.Build.0 = Release|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Release|x86.ActiveCfg = Release|Any CPU
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{58CBF49F-DF55-421F-8FF4-26E077FE497F} = {D82C56D6-B2CD-F611-9E31-04638F7EC30E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3463139-7F08-4F14-9312-EA04B469D719}
