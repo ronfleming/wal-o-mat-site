@@ -210,7 +210,7 @@
                 s.onload = function () {
                     var ai = new Microsoft.ApplicationInsights.ApplicationInsights({
                         config: {
-                            connectionString: "InstrumentationKey=5ed7f3c9-9589-4a85-9c70-9f07fd6705e9;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/;LiveEndpoint=https://westeurope.livediagnostics.monitor.azure.com/;ApplicationId=4bf23515-e7c2-4a73-96b0-6b9718b5ff40",
+                            connectionString: "__APPINSIGHTS_CONNECTION_STRING__",
                             disableCookiesUsage: true,        /* No cookies — GDPR compliant */
                             enableAutoRouteTracking: true,     /* Track Blazor SPA navigation */
                             disableExceptionTracking: false    /* Capture JS errors */

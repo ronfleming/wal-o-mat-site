@@ -38,6 +38,9 @@ jobs:
             - name: Build Blazor Client
               run: dotnet publish ./Client/WalOMat.Client.csproj -c Release -o ./Client/bin/Release/net9.0/publish
 
+            - name: Inject Application Insights connection string
+              run: sed -i 's|__APPINSIGHTS_CONNECTION_STRING__|${{ secrets.APPINSIGHTS_CONNECTION_STRING }}|g' ./Client/bin/Release/net9.0/publish/wwwroot/index.html
+
             - name: Install pre-rendering dependencies
               working-directory: ./prerender
               run: |

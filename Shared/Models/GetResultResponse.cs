@@ -1,4 +1,4 @@
-namespace WalOMat.Api.Models;
+namespace WalOMat.Shared.Models;
 
 /// <summary>
 /// Response when retrieving a saved result.

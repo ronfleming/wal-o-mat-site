@@ -6,7 +6,6 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Azure.Data.Tables;
 using WalOMat.Api.Entities;
-using WalOMat.Api.Models;
 using WalOMat.Shared.Models;
 
 namespace WalOMat.Api.Functions;
@@ -14,10 +13,12 @@ namespace WalOMat.Api.Functions;
 public class SharePreviewFunction
 {
     private readonly ILogger<SharePreviewFunction> _logger;
+    private readonly TableClient _tableClient;
 
-    public SharePreviewFunction(ILogger<SharePreviewFunction> logger)
+    public SharePreviewFunction(ILogger<SharePreviewFunction> logger, TableClient tableClient)
     {
         _logger = logger;
+        _tableClient = tableClient;
     }
 
     [Function("SharePreview")]
@@ -47,10 +48,7 @@ public class SharePreviewFunction
         // Bot detected - fetch result and return static HTML with Open Graph tags
         try
         {
-            var connectionString = Environment.GetEnvironmentVariable("TableStorageConnectionString")
-                ?? throw new InvalidOperationException("TableStorageConnectionString not configured");
-            var tableClient = new TableClient(connectionString, "QuizResults");
-            var entity = await tableClient.GetEntityAsync<QuizResultEntity>("results", id);
+            var entity = await _tableClient.GetEntityAsync<QuizResultEntity>("results", id);
             
             if (entity?.Value == null || entity.Value.ExpiresAt < DateTime.UtcNow)
             {

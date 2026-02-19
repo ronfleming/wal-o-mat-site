@@ -58,9 +58,9 @@
     @if (!string.IsNullOrEmpty(_shareUrl))
     {
         <div class="share-url-container">
-            <strong style="color: var(--color-accent); margin-bottom: 0.5rem;">🎉 @L.Get("share_success")</strong>
+            <strong class="share-success-text">🎉 @L.Get("share_success")</strong>
             <input type="text" readonly value="@_shareUrl" class="share-url-input" @ref="_shareUrlInput" @onclick="SelectAll" />
-            <button class="secondary-btn" @onclick="CopyShareUrl" style="align-self: center;">
+            <button class="secondary-btn share-copy-btn" @onclick="CopyShareUrl">
                 @(_copied ? L.Get("share_copied") : L.Get("share_copy"))
             </button>
         </div>
@@ -69,7 +69,7 @@
     <footer>
         @if (_shareError)
         {
-            <p style="color: var(--color-disagree); font-size: 0.9rem; margin-bottom: 0.5rem;">
+            <p class="share-error-text">
                 @L.Get("share_error")
             </p>
         }
@@ -166,8 +166,7 @@
 
     private async Task CopyShareUrl()
     {
-        // Note: Clipboard API requires HTTPS or localhost
-        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", _shareUrl);
+        await JSRuntime.InvokeVoidAsync("walOMatInterop.copyToClipboard", _shareUrl);
         _copied = true;
         StateHasChanged();
         

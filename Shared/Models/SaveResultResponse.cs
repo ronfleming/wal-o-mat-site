@@ -1,4 +1,4 @@
-namespace WalOMat.Api.Models;
+namespace WalOMat.Shared.Models;
 
 /// <summary>
 /// Response after saving a quiz result.

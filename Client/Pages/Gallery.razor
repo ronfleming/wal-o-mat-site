@@ -2,6 +2,7 @@
 @inject QuizDataService DataService
 @inject LocalizationService L
 @inject NavigationManager Navigation
+@inject IConfiguration Config
 @implements IDisposable
 
 <PageTitle>@L.Get("gallery_title") – Wal-O-Mat</PageTitle>
@@ -10,9 +11,9 @@
     <meta property="og:title" content="@L.Get("gallery_title") – Wal-O-Mat" />
     <meta property="og:description" content="@L.Get("gallery_description")" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://wal-o-mat.net/gallery" />
-    <meta property="og:image" content="https://wal-o-mat.net/images/whales/orca1.webp" />
-    <link rel="canonical" href="https://wal-o-mat.net/gallery" />
+    <meta property="og:url" content="@(_siteBaseUrl)/gallery" />
+    <meta property="og:image" content="@(_siteBaseUrl)/images/whales/orca1.webp" />
+    <link rel="canonical" href="@(_siteBaseUrl)/gallery" />
     @if (_quizData != null)
     {
         @((MarkupString)GetGalleryJsonLd())
@@ -56,10 +57,12 @@
 @code {
     private bool _isLoading = true;
     private QuizData? _quizData;
+    private string _siteBaseUrl = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         L.OnLanguageChanged += StateHasChanged;
+        _siteBaseUrl = Config["SiteBaseUrl"] ?? "https://wal-o-mat.net";
         _quizData = await DataService.LoadQuizDataAsync();
         _isLoading = false;
     }
@@ -77,7 +80,7 @@
         {
             ["@type"] = "ListItem",
             ["position"] = i + 1,
-            ["url"] = $"https://wal-o-mat.net/whale/{whale.Id}",
+            ["url"] = $"{_siteBaseUrl}/whale/{whale.Id}",
             ["name"] = $"{whale.NameDe} ({whale.NameEn})"
         }).ToArray();
 

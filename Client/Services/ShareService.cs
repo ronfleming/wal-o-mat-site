@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
-using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using WalOMat.Shared.Models;
 
 namespace WalOMat.Client.Services;
 
@@ -60,45 +60,5 @@ public class ShareService
             return null;
         }
     }
-}
-
-// DTOs matching API models
-public class SaveResultRequest
-{
-    public string Language { get; set; } = "de";
-    public List<AnswerDto> Answers { get; set; } = new();
-    public List<string> SelectedWhales { get; set; } = new();
-    public List<ResultDto> Results { get; set; } = new();
-}
-
-public class AnswerDto
-{
-    public string QuestionId { get; set; } = string.Empty;
-    public int? Position { get; set; }
-    public bool IsWeighted { get; set; }
-}
-
-public class ResultDto
-{
-    public string WhaleId { get; set; } = string.Empty;
-    public double Percentage { get; set; }
-    
-    // Ensure JSON deserialization works
-    public ResultDto() { }
-}
-
-public class SaveResultResponse
-{
-    public string ResultId { get; set; } = string.Empty;
-    public string ShareUrl { get; set; } = string.Empty;
-}
-
-public class GetResultResponse
-{
-    public string? ResultId { get; set; }
-    public string? Language { get; set; }
-    public DateTime? Timestamp { get; set; }
-    public List<ResultDto>? Results { get; set; }
-    public bool IsExpired { get; set; }
 }
 

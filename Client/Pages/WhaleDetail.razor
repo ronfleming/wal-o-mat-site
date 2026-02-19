@@ -2,6 +2,7 @@
 @inject QuizDataService DataService
 @inject LocalizationService L
 @inject NavigationManager Navigation
+@inject IConfiguration Config
 @implements IDisposable
 
 @if (_whale != null)
@@ -11,10 +12,10 @@
         <meta name="description" content="@_whale.GetDescription(L.CurrentLanguage)" />
         <meta property="og:title" content="@_whale.GetName(L.CurrentLanguage) – Wal-O-Mat" />
         <meta property="og:description" content="@_whale.GetDescription(L.CurrentLanguage)" />
-        <meta property="og:image" content="https://wal-o-mat.net@(_whale.ImagePath)" />
+        <meta property="og:image" content="@(_siteBaseUrl + _whale.ImagePath)" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://wal-o-mat.net/whale/@WhaleId" />
-        <link rel="canonical" href="https://wal-o-mat.net/whale/@WhaleId" />
+        <meta property="og:url" content="@(_siteBaseUrl)/whale/@WhaleId" />
+        <link rel="canonical" href="@(_siteBaseUrl)/whale/@WhaleId" />
         @((MarkupString)GetJsonLd())
     </HeadContent>
 }
@@ -67,10 +68,12 @@
     private bool _isLoading = true;
     private QuizData? _quizData;
     private WhaleProfile? _whale;
+    private string _siteBaseUrl = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         L.OnLanguageChanged += StateHasChanged;
+        _siteBaseUrl = Config["SiteBaseUrl"] ?? "https://wal-o-mat.net";
         _quizData = await DataService.LoadQuizDataAsync();
         _whale = _quizData?.Whales.FirstOrDefault(w => w.Id == WhaleId);
         _isLoading = false;
@@ -87,8 +90,8 @@
 
         var whaleName = _whale.GetName(L.CurrentLanguage);
         var whaleDesc = _whale.GetDescription(L.CurrentLanguage);
-        var imageUrl = $"https://wal-o-mat.net{_whale.ImagePath}";
-        var pageUrl = $"https://wal-o-mat.net/whale/{WhaleId}";
+        var imageUrl = $"{_siteBaseUrl}{_whale.ImagePath}";
+        var pageUrl = $"{_siteBaseUrl}/whale/{WhaleId}";
 
         var schema = new Dictionary<string, object>
         {
@@ -111,7 +114,7 @@
             {
                 ["@type"] = "WebApplication",
                 ["name"] = "Wal-O-Mat",
-                ["url"] = "https://wal-o-mat.net"
+                ["url"] = _siteBaseUrl
             }
         };
 

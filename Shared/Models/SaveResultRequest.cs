@@ -1,7 +1,8 @@
-namespace WalOMat.Api.Models;
+namespace WalOMat.Shared.Models;
 
 /// <summary>
 /// Request payload for saving quiz results.
+/// Used by both the Client (to send) and the API (to receive).
 /// </summary>
 public class SaveResultRequest
 {
@@ -22,5 +23,7 @@ public class ResultDto
 {
     public string WhaleId { get; set; } = string.Empty;
     public double Percentage { get; set; }
+
+    public ResultDto() { }
 }
 

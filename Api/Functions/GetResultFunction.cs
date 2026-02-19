@@ -6,17 +6,19 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using WalOMat.Api.Entities;
-using WalOMat.Api.Models;
+using WalOMat.Shared.Models;
 
 namespace WalOMat.Api.Functions;
 
 public class GetResultFunction
 {
     private readonly ILogger<GetResultFunction> _logger;
+    private readonly TableClient _tableClient;
 
-    public GetResultFunction(ILogger<GetResultFunction> logger)
+    public GetResultFunction(ILogger<GetResultFunction> logger, TableClient tableClient)
     {
         _logger = logger;
+        _tableClient = tableClient;
     }
 
     [Function("GetResult")]
@@ -35,15 +37,10 @@ public class GetResultFunction
             }
 
             // Retrieve from Table Storage
-            var connectionString = Environment.GetEnvironmentVariable("TableStorageConnectionString")
-                ?? throw new InvalidOperationException("TableStorageConnectionString not configured");
-            
-            var tableClient = new TableClient(connectionString, "QuizResults");
-            
             QuizResultEntity? entity;
             try
             {
-                entity = await tableClient.GetEntityAsync<QuizResultEntity>("results", id);
+                entity = await _tableClient.GetEntityAsync<QuizResultEntity>("results", id);
             }
             catch (RequestFailedException ex) when (ex.Status == 404)
             {

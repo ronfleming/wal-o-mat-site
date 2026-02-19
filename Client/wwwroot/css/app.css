@@ -15,8 +15,11 @@
     --color-disagree: #e74c3c;
     --color-text: #2c3e50;
     --color-text-light: #7f8c8d;
+    --color-water-light: #7ec8e3;
+    --color-deep: #0b2545;
     --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
     --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0 12px 40px rgba(0, 0, 0, 0.2);
     --radius-small: 8px;
     --radius-medium: 16px;
     --radius-large: 24px;
@@ -917,6 +920,21 @@ body {
 .secondary-btn:hover {
     background: var(--color-ocean-mid);
     color: white;
+}
+
+.share-success-text {
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+}
+
+.share-error-text {
+    color: var(--color-disagree);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.share-copy-btn {
+    align-self: center;
 }
 
 /* Share URL display */
