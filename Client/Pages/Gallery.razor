@@ -15,29 +15,7 @@
     <link rel="canonical" href="https://wal-o-mat.net/gallery" />
     @if (_quizData != null)
     {
-        <script type="application/ld+json">
-        {
-            "@@context": "https://schema.org",
-            "@@type": "ItemList",
-            "name": "Wal-O-Mat Whale Species",
-            "description": "All whale species in the Wal-O-Mat personality quiz",
-            "numberOfItems": @_quizData.Whales.Count,
-            "itemListElement": [
-                @for (int i = 0; i < _quizData.Whales.Count; i++)
-                {
-                    var whale = _quizData.Whales[i];
-                    <text>
-                    {
-                        "@@type": "ListItem",
-                        "position": @(i + 1),
-                        "url": "https://wal-o-mat.net/whale/@whale.Id",
-                        "name": "@whale.NameDe (@whale.NameEn)"
-                    }@(i < _quizData.Whales.Count - 1 ? "," : "")
-                    </text>
-                }
-            ]
-        }
-        </script>
+        @((MarkupString)GetGalleryJsonLd())
     }
 </HeadContent>
 
@@ -89,6 +67,37 @@
     public void Dispose()
     {
         L.OnLanguageChanged -= StateHasChanged;
+    }
+
+    private string GetGalleryJsonLd()
+    {
+        if (_quizData == null) return string.Empty;
+
+        var items = _quizData.Whales.Select((whale, i) => new Dictionary<string, object>
+        {
+            ["@type"] = "ListItem",
+            ["position"] = i + 1,
+            ["url"] = $"https://wal-o-mat.net/whale/{whale.Id}",
+            ["name"] = $"{whale.NameDe} ({whale.NameEn})"
+        }).ToArray();
+
+        var schema = new Dictionary<string, object>
+        {
+            ["@context"] = "https://schema.org",
+            ["@type"] = "ItemList",
+            ["name"] = "Wal-O-Mat Whale Species",
+            ["description"] = "All whale species in the Wal-O-Mat personality quiz",
+            ["numberOfItems"] = _quizData.Whales.Count,
+            ["itemListElement"] = items
+        };
+
+        var json = System.Text.Json.JsonSerializer.Serialize(schema, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        });
+
+        return $"<script type=\"application/ld+json\">{json}</script>";
     }
 }
 

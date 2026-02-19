@@ -15,29 +15,7 @@
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://wal-o-mat.net/whale/@WhaleId" />
         <link rel="canonical" href="https://wal-o-mat.net/whale/@WhaleId" />
-        <script type="application/ld+json">
-        {
-            "@@context": "https://schema.org",
-            "@@type": "Article",
-            "name": "@_whale.GetName(L.CurrentLanguage)",
-            "headline": "@_whale.GetName(L.CurrentLanguage) – Wal-O-Mat",
-            "description": "@System.Text.Json.JsonEncodedText.Encode(_whale.GetDescription(L.CurrentLanguage))",
-            "image": "https://wal-o-mat.net@(_whale.ImagePath)",
-            "url": "https://wal-o-mat.net/whale/@WhaleId",
-            "mainEntity": {
-                "@@type": "Thing",
-                "name": "@_whale.GetName(L.CurrentLanguage)",
-                "alternateName": "@_whale.ScientificName",
-                "image": "https://wal-o-mat.net@(_whale.ImagePath)",
-                "description": "@System.Text.Json.JsonEncodedText.Encode(_whale.GetDescription(L.CurrentLanguage))"
-            },
-            "isPartOf": {
-                "@@type": "WebApplication",
-                "name": "Wal-O-Mat",
-                "url": "https://wal-o-mat.net"
-            }
-        }
-        </script>
+        @((MarkupString)GetJsonLd())
     </HeadContent>
 }
 
@@ -101,6 +79,49 @@
     public void Dispose()
     {
         L.OnLanguageChanged -= StateHasChanged;
+    }
+
+    private string GetJsonLd()
+    {
+        if (_whale == null) return string.Empty;
+
+        var whaleName = _whale.GetName(L.CurrentLanguage);
+        var whaleDesc = _whale.GetDescription(L.CurrentLanguage);
+        var imageUrl = $"https://wal-o-mat.net{_whale.ImagePath}";
+        var pageUrl = $"https://wal-o-mat.net/whale/{WhaleId}";
+
+        var schema = new Dictionary<string, object>
+        {
+            ["@context"] = "https://schema.org",
+            ["@type"] = "Article",
+            ["name"] = whaleName,
+            ["headline"] = $"{whaleName} – Wal-O-Mat",
+            ["description"] = whaleDesc,
+            ["image"] = imageUrl,
+            ["url"] = pageUrl,
+            ["mainEntity"] = new Dictionary<string, object>
+            {
+                ["@type"] = "Thing",
+                ["name"] = whaleName,
+                ["alternateName"] = _whale.ScientificName,
+                ["image"] = imageUrl,
+                ["description"] = whaleDesc
+            },
+            ["isPartOf"] = new Dictionary<string, object>
+            {
+                ["@type"] = "WebApplication",
+                ["name"] = "Wal-O-Mat",
+                ["url"] = "https://wal-o-mat.net"
+            }
+        };
+
+        var json = System.Text.Json.JsonSerializer.Serialize(schema, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        });
+
+        return $"<script type=\"application/ld+json\">{json}</script>";
     }
 }
 
