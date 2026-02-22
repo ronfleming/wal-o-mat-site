@@ -133,7 +133,7 @@ else if (_result != null && _quizData != null)
     private string GetWhaleImage(string whaleId)
     {
         var whale = _quizData?.Whales.FirstOrDefault(w => w.Id == whaleId);
-        return whale?.ImagePath ?? "images/whales/orca1.webp";
+        return whale?.ImagePath ?? "images/og-image.jpg";
     }
 
     private void TakeQuiz()

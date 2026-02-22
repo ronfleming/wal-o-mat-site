@@ -111,7 +111,8 @@ public class SharePreviewFunction
         // Use shared whale metadata (single source of truth with whales.json)
         var whaleInfo = WhaleMetadata.Get(topResult.WhaleId);
         var whaleName = language == "en" ? whaleInfo.NameEn : whaleInfo.NameDe;
-        var imageUrl = $"{baseUrl}/{whaleInfo.ImagePath}";
+        // Use the general OG image (JPEG, 1200×630) for reliable social sharing
+        var imageUrl = $"{baseUrl}/images/og-image.jpg";
         var pageUrl = $"{baseUrl}/result/{resultId}";
         
         // Generate localized OG text
@@ -136,6 +137,7 @@ public class SharePreviewFunction
     <meta property=""og:title"" content=""{title}"">
     <meta property=""og:description"" content=""{description}"">
     <meta property=""og:image"" content=""{imageUrl}"">
+    <meta property=""og:image:type"" content=""image/jpeg"">
     <meta property=""og:image:width"" content=""1200"">
     <meta property=""og:image:height"" content=""630"">
     <meta property=""og:locale"" content=""{locale}"">
@@ -146,6 +148,7 @@ public class SharePreviewFunction
     <meta name=""twitter:title"" content=""{title}"">
     <meta name=""twitter:description"" content=""{description}"">
     <meta name=""twitter:image"" content=""{imageUrl}"">
+    <meta name=""twitter:image:alt"" content=""{title}"">
     
     <!-- Redirect humans to actual app -->
     <meta http-equiv=""refresh"" content=""0; url={pageUrl}"">
@@ -161,7 +164,7 @@ public class SharePreviewFunction
         var pageUrl = $"{baseUrl}/result/{resultId}";
         var title = "Wal-O-Mat – Welcher Wal bist du?";
         var description = "Finde heraus, welcher Wal am besten zu deiner Persönlichkeit passt!";
-        var imageUrl = $"{baseUrl}/images/whales/orca1.webp";
+        var imageUrl = $"{baseUrl}/images/og-image.jpg";
 
         return $@"<!DOCTYPE html>
 <html lang=""de"">
@@ -175,11 +178,15 @@ public class SharePreviewFunction
     <meta property=""og:title"" content=""{title}"">
     <meta property=""og:description"" content=""{description}"">
     <meta property=""og:image"" content=""{imageUrl}"">
+    <meta property=""og:image:type"" content=""image/jpeg"">
+    <meta property=""og:image:width"" content=""1200"">
+    <meta property=""og:image:height"" content=""630"">
     
     <meta name=""twitter:card"" content=""summary_large_image"">
     <meta name=""twitter:title"" content=""{title}"">
     <meta name=""twitter:description"" content=""{description}"">
     <meta name=""twitter:image"" content=""{imageUrl}"">
+    <meta name=""twitter:image:alt"" content=""{title}"">
     
     <meta http-equiv=""refresh"" content=""0; url={pageUrl}"">
 </head>
