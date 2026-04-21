@@ -1,3 +1,4 @@
+using Microsoft.JSInterop;
 using WalOMat.Shared.Models;
 
 namespace WalOMat.Client.Services;
@@ -9,6 +10,12 @@ public class QuizStateService
 {
     private readonly List<UserAnswer> _answers = new();
     private readonly HashSet<string> _selectedWhaleIds = new();
+    private readonly IJSRuntime? _js;
+
+    public QuizStateService(IJSRuntime? js = null)
+    {
+        _js = js;
+    }
 
     public QuizData? QuizData { get; private set; }
     public int CurrentQuestionIndex { get; private set; }
@@ -37,6 +44,7 @@ public class QuizStateService
     {
         Phase = QuizPhase.Answering;
         CurrentQuestionIndex = 0;
+        TrackEvent("quiz_start", new { totalQuestions = TotalQuestions });
     }
 
     public void AnswerQuestion(int? position)
@@ -61,9 +69,14 @@ public class QuizStateService
     public void NextQuestion()
     {
         if (IsLastQuestion)
+        {
             Phase = QuizPhase.Weighting;
+            TrackEvent("quiz_weighting", new { answered = _answers.Count(a => a.Position.HasValue) });
+        }
         else
+        {
             CurrentQuestionIndex++;
+        }
     }
 
     public void PreviousQuestion()
@@ -126,6 +139,14 @@ public class QuizStateService
 
         Results = matchingService.CalculateMatches(_answers, QuizData.Questions, selectedWhales);
         Phase = QuizPhase.Results;
+
+        var topWhaleId = Results.OrderByDescending(r => r.MatchPercentage).FirstOrDefault()?.WhaleId;
+        TrackEvent("quiz_complete", new
+        {
+            topWhale = topWhaleId,
+            whalesCompared = selectedWhales.Count,
+            weightedCount = _answers.Count(a => a.IsWeighted)
+        });
     }
 
     public void Reset()
@@ -140,6 +161,24 @@ public class QuizStateService
     public int? GetAnswerForQuestion(string questionId)
     {
         return _answers.FirstOrDefault(a => a.QuestionId == questionId)?.Position;
+    }
+
+    private void TrackEvent(string name, object? props = null)
+    {
+        if (_js is null) return;
+        _ = InvokeTrackAsync(name, props);
+    }
+
+    private async Task InvokeTrackAsync(string name, object? props)
+    {
+        try
+        {
+            await _js!.InvokeVoidAsync("walOMatAnalytics.trackEvent", name, props);
+        }
+        catch
+        {
+            // Analytics failures must never break the quiz flow.
+        }
     }
 }
 

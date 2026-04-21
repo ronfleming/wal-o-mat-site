@@ -53,6 +53,12 @@ jobs:
                   WWWROOT: ${{ github.workspace }}/Client/bin/Release/net9.0/publish/wwwroot
               run: node serve-and-prerender.mjs
 
+            # Pre-render overwrites index.html (and per-route index.html) with Playwright output.
+            # Run substitution again so the deployed HTML always contains the real connection string.
+            - name: Inject Application Insights connection string (post-prerender)
+              run: |
+                find ./Client/bin/Release/net9.0/publish/wwwroot -name 'index.html' -print0 | xargs -0 sed -i 's|__APPINSIGHTS_CONNECTION_STRING__|${{ secrets.APPINSIGHTS_CONNECTION_STRING }}|g'
+
             - name: Build And Deploy
               id: builddeploy
               uses: Azure/static-web-apps-deploy@v1
