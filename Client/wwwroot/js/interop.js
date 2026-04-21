@@ -41,3 +41,47 @@ window.walOMatInterop = {
     }
 };
 
+// Thin wrapper around Application Insights for custom events.
+// Safe to call before the SDK loads (no-ops until window.appInsights is set).
+// Referrer is captured once per page load, stripped of query string per GDPR choice.
+window.walOMatAnalytics = (function () {
+    var sessionReferrer = null;
+
+    function initReferrer() {
+        try {
+            if (!document.referrer) {
+                sessionReferrer = '(direct)';
+                return;
+            }
+            var u = new URL(document.referrer);
+            if (u.hostname === location.hostname) {
+                sessionReferrer = '(internal)';
+                return;
+            }
+            sessionReferrer = u.origin + u.pathname;
+        } catch (err) {
+            sessionReferrer = '(unknown)';
+        }
+    }
+
+    function trackEvent(name, props) {
+        try {
+            if (!window.appInsights || typeof window.appInsights.trackEvent !== 'function') return;
+            var merged = Object.assign({
+                referrer: sessionReferrer,
+                path: location.pathname,
+                lang: document.documentElement.lang || 'de'
+            }, props || {});
+            window.appInsights.trackEvent({ name: name }, merged);
+        } catch (err) {
+            /* never let analytics break the app */
+        }
+    }
+
+    function getReferrer() {
+        return sessionReferrer;
+    }
+
+    return { initReferrer: initReferrer, trackEvent: trackEvent, getReferrer: getReferrer };
+})();
+

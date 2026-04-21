@@ -224,7 +224,9 @@
                         }
                     });
                     ai.loadAppInsights();
-                    ai.trackPageView();
+                    window.appInsights = ai;
+                    if (window.walOMatAnalytics) window.walOMatAnalytics.initReferrer();
+                    ai.trackPageView({ properties: window.walOMatAnalytics ? { referrer: window.walOMatAnalytics.getReferrer() } : {} });
                 };
                 document.head.appendChild(s);
             })();

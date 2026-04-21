@@ -13,6 +13,10 @@ docs-temp/
 # Azurite local storage
 .azurite/
 
+# Diagnostic/debug HTML files downloaded during troubleshooting
+live-*.html
+debug-*.html
+
 # User-specific files
 *.rsuser
 *.suo
