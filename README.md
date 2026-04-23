@@ -137,22 +137,13 @@ dotnet watch run
 # Open http://localhost:5042
 ```
 
-## Deployment configuration
+## Deployment
 
-The GitHub Actions workflow ([`.github/workflows/azure-static-web-apps-purple-flower-087107303.yml`](.github/workflows/azure-static-web-apps-purple-flower-087107303.yml)) substitutes the Application Insights connection string into published `index.html` files (the `__APPINSIGHTS_CONNECTION_STRING__` placeholder). It runs **twice**: once after `dotnet publish`, and again **after** the SEO pre-render step, because pre-rendering overwrites `wwwroot/index.html` (and per-route `index.html` files) with Playwright output. Without the second pass, browsers can receive the literal placeholder again. If the required secret is missing or empty, the placeholder is served as-is and the JS SDK silently fails — no `pageViews` or `customEvents` appear in App Insights, only server-side telemetry from the Functions app.
+Deployment is handled by GitHub Actions ([`.github/workflows/azure-static-web-apps-purple-flower-087107303.yml`](.github/workflows/azure-static-web-apps-purple-flower-087107303.yml)). On push to `main`, the workflow builds the Blazor client, runs SEO pre-rendering via Playwright, and uploads to Azure Static Web Apps.
 
-### Required GitHub repository secrets
+The Application Insights connection string is hard-coded in `Client/wwwroot/index.html`. This is intentional — connection strings are not secrets (they're write-only telemetry identifiers visible in browser DevTools by design). If you need to rotate the connection string, update it directly in `index.html`.
 
-Set these under **Settings → Secrets and variables → Actions → Repository secrets**:
-
-| Secret | Purpose |
-|---|---|
-| `AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_FLOWER_087107303` | Deployment token for Azure Static Web Apps (auto-created when the SWA was linked to the repo). |
-| `APPINSIGHTS_CONNECTION_STRING` | Full connection string for the `wal-o-mat-swa` Application Insights resource. Get it from **Azure Portal → Application Insights → Overview → Connection String** (format: `InstrumentationKey=...;IngestionEndpoint=https://...in.applicationinsights.azure.com/;...`). Copy the entire string, including the `InstrumentationKey=` prefix. |
-
-After adding or updating `APPINSIGHTS_CONNECTION_STRING`, re-run the latest workflow (**Actions → Azure Static Web Apps CI/CD → Re-run all jobs**) so the new value is baked into the deployed `index.html`. Verify by loading the site, viewing source, and searching for `InstrumentationKey=` — if you still see the literal `__APPINSIGHTS_CONNECTION_STRING__`, the secret did not propagate.
-
-Local development never reads this secret; the SDK is disabled on `localhost` / `127.0.0.1` by design.
+The SDK is disabled on `localhost` / `127.0.0.1` so local development never sends telemetry.
 
 ## Troubleshooting
 
